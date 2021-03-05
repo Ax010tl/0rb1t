@@ -18,7 +18,7 @@ public class Launch : MonoBehaviour
     public float dragRange;
     //Máxima velocidad que puede alcanzar el cohete
     [SerializeField] public float maxVel; 
-    Rigidbody2D rb;
+    public Rigidbody2D rb;
 
     // Start is called before the first frame update
     void Start()
@@ -29,14 +29,14 @@ public class Launch : MonoBehaviour
 
     bool canDrag = true; 
     //Distancia
-    Vector3 dis; 
+    public Vector3 dis; 
     void OnMouseDrag()
     {
         //Si ya se lanzó 
         if(!canDrag)
             return; 
 
-        var pos = Camera.main.ScreenToWorldPoint(Input.mousePosition); 
+        Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition); 
         dis = pos - pivot.position; 
         dis.z = 0; //Es 2D, entonces hay que quitarle el componente z
         
