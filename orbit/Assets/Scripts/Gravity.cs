@@ -24,7 +24,7 @@ public class Gravity : MonoBehaviour
 
     double getDistanceMagnitude(){
         Vector3 dist = transform.position - planet.transform.position;
-        return dist.magnitude - minDistance;
+        return dist.magnitude + minDistance;
     }
 
     Vector3 getGravitationalForce(){
