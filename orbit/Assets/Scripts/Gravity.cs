@@ -17,15 +17,14 @@ public class Gravity : MonoBehaviour
     double distanceScalar;
     Vector3 distanceDirection;
 
-    double getDistanceScalar(){
-        return Math.Sqrt(
-            Math.Pow( (double) transform.position.x - (double) planet.transform.position.x , 2) +
-            Math.Pow( (double) transform.position.y - (double) planet.transform.position.y , 2)
-        ) + minDistance;
-    }
     Vector3 getDistanceDirection(){
         Vector3 dist = transform.position - planet.transform.position;
         return dist.normalized;
+    }
+
+    double getDistanceMagnitude(){
+        Vector3 dist = transform.position - planet.transform.position;
+        return dist.magnitude - minDistance;
     }
 
     Vector3 getGravitationalForce(){
@@ -33,10 +32,19 @@ public class Gravity : MonoBehaviour
         return distanceDirection*((float) magnitude);
     }
 
+    void updateTrayectoryAngle(){
+        if(bodyRocket.velocity.x == 0 && bodyPlanet.velocity.y == 0) return;
+        float angleRadians = (float) Math.Atan2(bodyRocket.velocity.x, bodyRocket.velocity.y);
+        float angleDegrees = angleRadians * (180/ (float) Math.PI);
+        transform.rotation = Quaternion.Euler(0, 0, -angleDegrees);
+    }
    
     void Start() {
         bodyRocket = GetComponent<Rigidbody2D>(); 
         bodyPlanet = planet.GetComponent<Rigidbody2D>();
+
+        minDistance = planet.GetComponent<Renderer>().bounds.size.x/2;
+
         massRocket = bodyRocket.mass;        
         massPlanet = bodyPlanet.mass;
     }
@@ -45,9 +53,17 @@ public class Gravity : MonoBehaviour
     {
         speedDirection = bodyRocket.velocity;
         speed = bodyRocket.velocity.magnitude;
-        distanceScalar = getDistanceScalar();
         distanceDirection = getDistanceDirection();
+        distanceScalar = getDistanceMagnitude();
+        
         Vector3 force = -getGravitationalForce();
+        
+        /* if(
+            Math.Abs(transform.position.x - bodyPlanet.transform.position.x) < 0.01f &&
+            Math.Abs(transform.position.y - bodyPlanet.transform.position.y) < 0.01f
+        ) return; */
+
         bodyRocket.AddForce(force);
+        updateTrayectoryAngle();
     }
 }
