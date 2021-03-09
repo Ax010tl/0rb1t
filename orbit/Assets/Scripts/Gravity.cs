@@ -8,8 +8,8 @@ public class Gravity : MonoBehaviour
     // Public properties
     [SerializeField] GameObject planet;
     [SerializeField] GameObject background;
-    [SerializeField] double G; // Start with 6.67*Math.Pow(10,-11)
     [SerializeField] public Camera mainCamera;
+    [SerializeField] double G; // Start with 6.67*Math.Pow(10,-11)
     // Rigid bodies
     Rigidbody2D bodyRocket;
     Rigidbody2D bodyPlanet;
@@ -66,6 +66,8 @@ public class Gravity : MonoBehaviour
         Vector3 force = -getGravitationalForce();
 
         mainCamera.orthographicSize = 0.9f * (float) distanceScalar;
+        // background.GetComponent<SpriteRenderer>().size = new Vector2(3 * (float) distanceScalar, 3 * mainCamera.aspect * (float) distanceScalar);
+
 
         bodyRocket.AddForce(force);
         updateTrayectoryAngle();
