@@ -5,15 +5,22 @@ using UnityEngine;
 
 public class Gravity : MonoBehaviour 
 {
+    // Public properties
     [SerializeField] GameObject planet;
+    [SerializeField] GameObject background;
     [SerializeField] double G; // Start with 6.67*Math.Pow(10,-11)
-    [SerializeField] double minDistance;
-    double speed;
-    Vector3 speedDirection;
+    [SerializeField] public Camera mainCamera;
+    // Rigid bodies
     Rigidbody2D bodyRocket;
     Rigidbody2D bodyPlanet;
+    // Rigid bodies masses
     double massRocket;
     double massPlanet;
+    // Speed
+    double speed;
+    Vector3 speedDirection;
+    // Distance
+    double minDistance;
     double distanceScalar;
     Vector3 distanceDirection;
 
@@ -55,13 +62,10 @@ public class Gravity : MonoBehaviour
         speed = bodyRocket.velocity.magnitude;
         distanceDirection = getDistanceDirection();
         distanceScalar = getDistanceMagnitude();
-        
+
         Vector3 force = -getGravitationalForce();
-        
-        /* if(
-            Math.Abs(transform.position.x - bodyPlanet.transform.position.x) < 0.01f &&
-            Math.Abs(transform.position.y - bodyPlanet.transform.position.y) < 0.01f
-        ) return; */
+
+        mainCamera.orthographicSize = 0.9f * (float) distanceScalar;
 
         bodyRocket.AddForce(force);
         updateTrayectoryAngle();

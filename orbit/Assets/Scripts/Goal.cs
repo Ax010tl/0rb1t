@@ -23,7 +23,7 @@ public class Goal : MonoBehaviour
         if(collider.tag == "Player"){
             numberOfRevolutions++;
             if(numberOfRevolutions==minRevolutions){
-                SceneManager.LoadScene("FunFact");
+                // SceneManager.LoadScene("FunFact");
             }
 
         }
