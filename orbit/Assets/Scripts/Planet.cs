@@ -9,6 +9,7 @@ public class Planet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Random.seed++;
         GetComponent<SpriteRenderer>().sprite = list[ Random.Range(0,3) ];
     }
 

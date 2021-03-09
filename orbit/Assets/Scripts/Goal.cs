@@ -24,6 +24,7 @@ public class Goal : MonoBehaviour
             numberOfRevolutions++;
             if(numberOfRevolutions==minRevolutions){
                 // SceneManager.LoadScene("FunFact");
+                SceneManager.LoadScene("Level1");
             }
 
         }
