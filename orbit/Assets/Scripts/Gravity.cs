@@ -43,7 +43,7 @@ public class Gravity : MonoBehaviour
         if(bodyRocket.velocity.x == 0 && bodyPlanet.velocity.y == 0) return;
         float angleRadians = (float) Math.Atan2(bodyRocket.velocity.x, bodyRocket.velocity.y);
         float angleDegrees = angleRadians * (180/ (float) Math.PI);
-        transform.rotation = Quaternion.Euler(0, 0, -angleDegrees);
+        transform.rotation = Quaternion.Euler(0, 0, -angleDegrees-42.381f);
     }
    
     void Start() {

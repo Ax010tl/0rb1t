@@ -13,18 +13,11 @@ public class Goal : MonoBehaviour
         numberOfRevolutions = 0;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void OnTriggerEnter2D(Collider2D collider){
         if(collider.tag == "Player"){
             numberOfRevolutions++;
-            if(numberOfRevolutions==minRevolutions){
-                // SceneManager.LoadScene("FunFact");
-                SceneManager.LoadScene("Level1");
+            if(numberOfRevolutions == minRevolutions){
+                SceneManager.LoadScene("FunFact");
             }
 
         }
