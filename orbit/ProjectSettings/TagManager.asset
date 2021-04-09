@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Planet
   - Limit
+  - PowerUp
   layers:
   - Default
   - TransparentFX

@@ -9,14 +9,18 @@ public class Goal : MonoBehaviour
     int numberOfRevolutions;
     [SerializeField] int minRevolutions;
     [SerializeField] Text scoreText;
+    [SerializeField] Text livesText;
     int score;
+    int lives; 
     // Start is called before the first frame update
     void Start()
     {
         numberOfRevolutions = 0;
         score = 0; 
+        lives = 3; 
         //print starting score
         scoreText.text = "Puntaje: " + score.ToString();
+        livesText.text = "Vidas: " + lives.ToString();
     }
 
     //Keep score
@@ -26,6 +30,16 @@ public class Goal : MonoBehaviour
         scoreText.text = "Puntaje: " + score.ToString(); 
 
         if(score < 0){
+            SceneManager.LoadScene("End");
+        }
+    }
+    
+    private void HandleLives ()
+    {
+        //Change text to new number
+        livesText.text = "Vidas: " + lives.ToString(); 
+
+        if(lives < 0){
             SceneManager.LoadScene("End");
         }
     }
@@ -43,6 +57,13 @@ public class Goal : MonoBehaviour
         if(collider.tag == "Planet")
         {
             score--;
+            lives--;
+            HandleScore();
+            HandleLives(); 
+        }
+        if(collider.tag == "PowerUp")
+        {
+            score++;
             HandleScore();
         }
     }
