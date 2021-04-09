@@ -1,5 +1,5 @@
 ﻿/**
-* Permitir que el cohete pueda ser disparado al arrastrar el mouse
+* Allows to drag the rocket in order to launch. (more drag = more velocity)
 Lulú Badillo
 03/03/2021
 */

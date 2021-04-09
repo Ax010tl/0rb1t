@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Planet
+  - Limit
+  - PowerUp
   layers:
   - Default
   - TransparentFX
