@@ -1674,7 +1674,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "La estad\xEDstica nos ayuda medir cosas muy chiquitas, as\xED podemos
+  m_Text: "La estad\xEDstica nos ayuda a medir cosas muy chiquitas, as\xED podemos
     entender mejor la formaci\xF3n de planetas y los hoyos negros."
 --- !u!222 &2129060054
 CanvasRenderer:
