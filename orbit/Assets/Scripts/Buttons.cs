@@ -6,8 +6,6 @@ Valeria Pineda
 11/03/2021
 */
 
-// using System.Collections;
-// using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 

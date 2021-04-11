@@ -4,8 +4,7 @@ to level start.
 Valeria Pineda
 10/04/2021
 */
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine.SceneManagement;
 using UnityEngine;
 

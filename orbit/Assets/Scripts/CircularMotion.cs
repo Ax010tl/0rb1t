@@ -6,8 +6,6 @@ Valeria Pineda
 */
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CircularMotion : MonoBehaviour
@@ -26,10 +24,10 @@ public class CircularMotion : MonoBehaviour
         transform.position = new Vector3(planet.transform.position.x, planet.transform.position.y + radius, 0);
 
         // random elliptical orbit
-        System.Random rd = new System.Random();
+        UnityEngine.Random.InitState((int)Time.unscaledTime);
         if (loopy)
         {
-            offset = rd.Next(30, 60);
+            offset = UnityEngine.Random.Range(30, 60);
         }
 
         if (direction >= 0)
