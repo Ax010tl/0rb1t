@@ -1,3 +1,10 @@
+/*
+Control gravitational pull on rocket. Also changes rocket orientation
+and camera size.
+Lalo Villalpando
+05/03/2021
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -54,6 +61,11 @@ public class Gravity : MonoBehaviour
 
         massRocket = bodyRocket.mass;        
         massPlanet = bodyPlanet.mass;
+
+        G = PlayerPrefs.GetInt("level") + 7;
+        if(G>30){
+            G = 30; 
+        }
     }
 
     void Update()
@@ -65,9 +77,7 @@ public class Gravity : MonoBehaviour
 
         Vector3 force = -getGravitationalForce();
 
-        mainCamera.orthographicSize = 0.9f * (float) distanceScalar;
-        // background.GetComponent<SpriteRenderer>().size = new Vector2(3 * (float) distanceScalar, 3 * mainCamera.aspect * (float) distanceScalar);
-
+        mainCamera.orthographicSize = Mathf.Clamp(0.9f * (float) distanceScalar, 3, 11.02718f);
 
         bodyRocket.AddForce(force);
         updateTrayectoryAngle();
