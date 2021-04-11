@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿/*
+This class handles the basics of the game: score and lives. 
+Lourdes Badillo & Eduardo Villalpando
+9/04/2021
+*/
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,60 +17,98 @@ public class Goal : MonoBehaviour
     [SerializeField] Text livesText;
     int score;
     int lives; 
+
     // Start is called before the first frame update
     void Start()
     {
         numberOfRevolutions = 0;
-        score = 0; 
-        lives = 3; 
+        score = PlayerPrefs.GetInt("score"); 
+        PlayerPrefs.SetInt("lives", 3);
+        lives = PlayerPrefs.GetInt("lives"); 
         //print starting score
         scoreText.text = "Puntaje: " + score.ToString();
         livesText.text = "Vidas: " + lives.ToString();
     }
 
-    //Keep score
+    // Keep score
     private void HandleScore ()
     {
         //Change text to new score
         scoreText.text = "Puntaje: " + score.ToString(); 
 
-        if(score < 0){
-            SceneManager.LoadScene("End");
-        }
     }
     
     private void HandleLives ()
     {
-        //Change text to new number
+        // Change text to new number
         livesText.text = "Vidas: " + lives.ToString(); 
 
         if(lives < 0){
+            SceneCoroutine();
             SceneManager.LoadScene("End");
         }
     }
 
     void OnTriggerEnter2D(Collider2D collider){
-        //We need to add points if it manages two complete orbits
+        // Add points to score if rocket collides with a powerup
+        if(collider.tag == "PowerUp"){
+            powerUping();
+        }
+
+        // We need to add points if it manages two complete orbits
         if(collider.tag == "Limit"){
             numberOfRevolutions++;
             if(numberOfRevolutions == minRevolutions){
-                score++;
-                HandleScore ();
-                SceneManager.LoadScene("FunFact");
+                powerUping();
+                SceneCoroutine();
+                PlayerPrefs.SetInt("level", PlayerPrefs.GetInt("level")+1);
+                SceneManager.LoadScene( getFunFactScene() );
             }
         }
-        if(collider.tag == "Planet")
-        {
-            score--;
+        if(collider.tag == "Planet") {
             lives--;
-            HandleScore();
+            PlayerPrefs.SetInt("lives", lives);
             HandleLives(); 
         }
-        if(collider.tag == "PowerUp")
-        {
-            score++;
-            HandleScore();
+    }
+
+    
+    //wait a few seconds before new scene
+    IEnumerator SceneCoroutine()
+    {
+        yield return new WaitForSeconds(1);
+    }
+
+    //Adds points to score and updates label
+    void powerUping(){
+        score++;
+        PlayerPrefs.SetInt("score", score);
+        HandleScore ();
+    }
+
+    // Go to fun fact depending on power up sprite
+    string getFunFactScene(){
+        GameObject powerUp = GameObject.FindWithTag("PowerUp");
+        string powerUpType = powerUp.GetComponent<SpriteRenderer>().sprite.name;
+        switch(powerUpType){
+            case "math":
+                return "FFMath1";
+            case "bio":
+                return "FFBio1";
+            case "chem":
+                return "FFChem1";
+            case "phys":
+                return "FFPhys1";
+            case "eng":
+                return "FFEng1";
+            case "tech":
+                return "FFTech1";
+            default:
+                return "End";
         }
     }
 
 }
+
+
+
