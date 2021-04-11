@@ -6,7 +6,7 @@ so that the colors of the planets and rockets are random.
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class Planet : MonoBehaviour
+public class RandomSprites : MonoBehaviour
 {
     [SerializeField] Sprite[] list;
 
@@ -14,6 +14,7 @@ public class Planet : MonoBehaviour
     void Start()
     {
         Random.seed++;
+        // Random.InitState((int) Time.time);
         GetComponent<SpriteRenderer>().sprite = list[ Random.Range(0,list.Length) ];
     }
 

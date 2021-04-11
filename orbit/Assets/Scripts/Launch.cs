@@ -12,11 +12,11 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Launch : MonoBehaviour
 {
-    //Objeto pivote a partir del cual se crea una circunferencia para lanzar el cohete
+    //Pivot object 
     public Transform pivot; 
-    //Rango en el que se puede arrastrar el cohete
+    //Drag range
     public float dragRange;
-    //Máxima velocidad que puede alcanzar el cohete
+    //Max velocity 
     [SerializeField] public float maxVel; 
     public Rigidbody2D rb;
 
@@ -27,23 +27,23 @@ public class Launch : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Kinematic; 
     }
 
-    bool canDrag = true; 
-    //Distancia
+    public bool canDrag = true; 
+    //Distance
     public Vector3 dis; 
     void OnMouseDrag()
     {
-        //Si ya se lanzó 
+        //If it has been launched
         if(!canDrag)
             return; 
 
         Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition); 
         dis = pos - pivot.position; 
-        dis.z = 0; //Es 2D, entonces hay que quitarle el componente z
+        dis.z = 0; //It's 2D, so component z doesn't matter
         
         float angleRadians = (float) Math.Atan2(dis.x, -dis.y);
         float angleDegrees = angleRadians * (180/ (float) Math.PI);
 
-        if(dis.magnitude > dragRange) //si se arrastra fuera del rango definido
+        if(dis.magnitude > dragRange) //if the rocket is dragged outside of the allowed range
         {
             dis = dis.normalized * dragRange; 
         }
@@ -54,17 +54,17 @@ public class Launch : MonoBehaviour
 
     void OnMouseUp()
     {
-        //Si ya se lanzó
+        //If the rocket has been launched
         if(!canDrag)
             return; 
         
-        //Si todavía no se ha lanzado
-        canDrag = false; //Ya no se puede volver a lanzar
+        //If it hasnt been launched
+        canDrag = false; //Do not allow to launch again
         rb.bodyType = RigidbodyType2D.Dynamic; 
-        //Queremos que funcione como una resortera, entonces debe salir disparado hacia el componente opuesto al que se arrastra
+        //It works like a slingshot, so the rocket must move in the opposite direction than the user dragged it
         dis.y *= -1; 
         dis.x *= -1; 
-        //La velocidad cambia dependiendo de qué tanto se arrastró en x,y
+        //Velocity changes acording to how far the rocket was dragged
         rb.velocity = dis.normalized * maxVel * dis.magnitude / dragRange; 
     }
    

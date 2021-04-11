@@ -11,39 +11,29 @@ using UnityEngine.UI;
 
 public class Goal : MonoBehaviour
 {
-    int numberOfRevolutions;
+    public int numberOfRevolutions; 
+    //in order to make it more difficult, we are sttaing a min number of orbits the rocket must do 
     [SerializeField] int minRevolutions;
-    [SerializeField] Text scoreText;
-    [SerializeField] Text livesText;
-    int score;
-    int lives; 
+    public GameObject canvas;
+    Manager sct;
+    public GameObject endMessage;
 
     // Start is called before the first frame update
     void Start()
     {
+        // Restart number of revolutions
         numberOfRevolutions = 0;
-        score = PlayerPrefs.GetInt("score"); 
-        PlayerPrefs.SetInt("lives", 3);
-        lives = PlayerPrefs.GetInt("lives"); 
-        //print starting score
-        scoreText.text = "Puntaje: " + score.ToString();
-        livesText.text = "Vidas: " + lives.ToString();
-    }
-
-    // Keep score
-    private void HandleScore ()
-    {
-        //Change text to new score
-        scoreText.text = "Puntaje: " + score.ToString(); 
-
+        // Call Manager.cs and displayAll to show all stats
+        sct = canvas.GetComponent<Manager>();
+        sct.displayAll();
+        // Hide end message
+        endMessage.SetActive(false);
     }
     
+    //If the player is out of lives, it's game over
     private void HandleLives ()
     {
-        // Change text to new number
-        livesText.text = "Vidas: " + lives.ToString(); 
-
-        if(lives < 0){
+        if(PlayerPrefs.GetInt("lives") <= 0){
             SceneCoroutine();
             SceneManager.LoadScene("End");
         }
@@ -52,44 +42,42 @@ public class Goal : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collider){
         // Add points to score if rocket collides with a powerup
         if(collider.tag == "PowerUp"){
-            powerUping();
+            sct.changeScore(1);
         }
 
-        // We need to add points if it manages two complete orbits
+        // We need to add points if it manages the minimum complete orbits
         if(collider.tag == "Limit"){
             numberOfRevolutions++;
             if(numberOfRevolutions == minRevolutions){
-                powerUping();
-                SceneCoroutine();
-                PlayerPrefs.SetInt("level", PlayerPrefs.GetInt("level")+1);
-                SceneManager.LoadScene( getFunFactScene() );
+                // Change levels and scores
+                sct.changeScore(1);
+                // Show achievement message
+                endMessage.SetActive(true);
+                // Wait for 5 seconds before showing next scene
+                StartCoroutine(SceneCoroutine());
             }
         }
+
+        // If the rocket collides with the planet, lives are subtracted
         if(collider.tag == "Planet") {
-            lives--;
-            PlayerPrefs.SetInt("lives", lives);
-            HandleLives(); 
+            sct.changeLives(-1);
+            HandleLives();
         }
     }
 
-    
-    //wait a few seconds before new scene
+    // Wait a few seconds before new scene
     IEnumerator SceneCoroutine()
     {
-        yield return new WaitForSeconds(1);
-    }
-
-    //Adds points to score and updates label
-    void powerUping(){
-        score++;
-        PlayerPrefs.SetInt("score", score);
-        HandleScore ();
+        yield return new WaitForSeconds(5);
+        sct.changeLevel(1);
+        SceneManager.LoadScene( getFunFactScene() );
     }
 
     // Go to fun fact depending on power up sprite
     string getFunFactScene(){
         GameObject powerUp = GameObject.FindWithTag("PowerUp");
         string powerUpType = powerUp.GetComponent<SpriteRenderer>().sprite.name;
+        print(powerUpType);
         switch(powerUpType){
             case "math":
                 return "FFMath1";
