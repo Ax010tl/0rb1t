@@ -60,12 +60,16 @@ public class Goal : MonoBehaviour
 
         // If the rocket collides with the planet, lives are subtracted
         if(collider.tag == "Planet") {
-            sct.changeLives(-1);
-            HandleLives();
+            // Once number of revolutions has been reachedd, it won't be counted if player loses lives
+            if(numberOfRevolutions == minRevolutions) {}
+            else {
+                sct.changeLives(-1);
+                HandleLives();
+            }
         }
     }
 
-    // Wait a few seconds before new scene
+    // Wait a few seconds before new scene and level
     IEnumerator SceneCoroutine()
     {
         yield return new WaitForSeconds(5);
