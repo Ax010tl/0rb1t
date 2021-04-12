@@ -3,20 +3,21 @@ This class handles the basics of the game: score and lives.
 Lourdes Badillo & Eduardo Villalpando
 9/04/2021
 */
+
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Goal : MonoBehaviour
 {
     public int numberOfRevolutions; 
-    //in order to make it more difficult, we are sttaing a min number of orbits the rocket must do 
+    //in order to make it more difficult, we are setting a min number of orbits the rocket must do 
     [SerializeField] int minRevolutions;
-    public GameObject canvas;
+    [SerializeField] GameObject canvas;
+    [SerializeField] GameObject endMessage;
+    [SerializeField] Text endText;
     Manager sct;
-    public GameObject endMessage;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +29,10 @@ public class Goal : MonoBehaviour
         sct.displayAll();
         // Hide end message
         endMessage.SetActive(false);
+    }
+
+    void Update() {
+        sct.displayAll();
     }
     
     //If the player is out of lives, it's game over
@@ -52,6 +57,7 @@ public class Goal : MonoBehaviour
                 // Change levels and scores
                 sct.changeScore(1);
                 // Show achievement message
+                endText.text = "¡Nivel completado!";
                 endMessage.SetActive(true);
                 // Wait for 5 seconds before showing next scene
                 StartCoroutine(SceneCoroutine());
@@ -60,7 +66,7 @@ public class Goal : MonoBehaviour
 
         // If the rocket collides with the planet, lives are subtracted
         if(collider.tag == "Planet") {
-            // Once number of revolutions has been reachedd, it won't be counted if player loses lives
+            // Once number of revolutions has been reached, it won't be counted if player loses lives
             if(numberOfRevolutions == minRevolutions) {}
             else {
                 sct.changeLives(-1);
@@ -81,7 +87,6 @@ public class Goal : MonoBehaviour
     string getFunFactScene(){
         GameObject powerUp = GameObject.FindWithTag("PowerUp");
         string powerUpType = powerUp.GetComponent<SpriteRenderer>().sprite.name;
-        print(powerUpType);
         switch(powerUpType){
             case "math":
                 return "FFMath1";
