@@ -7,7 +7,6 @@ TagManager:
   - Planet
   - Limit
   - PowerUp
-  - Obtacle
   layers:
   - Default
   - TransparentFX
