@@ -6,8 +6,6 @@ Lalo Villalpando
 */
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Gravity : MonoBehaviour 
@@ -77,7 +75,7 @@ public class Gravity : MonoBehaviour
 
         Vector3 force = -getGravitationalForce();
 
-        mainCamera.orthographicSize = Mathf.Clamp(0.9f * (float) distanceScalar, 3, 11.02718f);
+        mainCamera.orthographicSize = Mathf.Clamp(1.0f * (float) distanceScalar, 3, 11.02718f);
 
         bodyRocket.AddForce(force);
         updateTrayectoryAngle();
