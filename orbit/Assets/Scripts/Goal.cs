@@ -12,7 +12,7 @@ using UnityEngine.SceneManagement;
 public class Goal : MonoBehaviour
 {
     public int numberOfRevolutions; 
-    //in order to make it more difficult, we are stating a min number of orbits the rocket must do 
+    //in order to make it more difficult, we are setting a min number of orbits the rocket must do 
     [SerializeField] int minRevolutions;
     [SerializeField] GameObject canvas;
     [SerializeField] GameObject endMessage;
@@ -64,9 +64,9 @@ public class Goal : MonoBehaviour
             }
         }
 
-        // If the rocket collides with the planet or obstacles, lives are subtracted
-        if(collider.tag == "Planet" || collider.tag == "Obstacle"  ) {
-            // Once number of revolutions has been reachedd, it won't be counted if player loses lives
+        // If the rocket collides with the planet, lives are subtracted
+        if(collider.tag == "Planet") {
+            // Once number of revolutions has been reached, it won't be counted if player loses lives
             if(numberOfRevolutions == minRevolutions) {}
             else {
                 sct.changeLives(-1);
