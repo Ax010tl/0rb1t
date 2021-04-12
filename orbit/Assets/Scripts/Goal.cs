@@ -6,16 +6,18 @@ Lourdes Badillo & Eduardo Villalpando
 
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class Goal : MonoBehaviour
 {
     public int numberOfRevolutions; 
-    //in order to make it more difficult, we are sttaing a min number of orbits the rocket must do 
+    //in order to make it more difficult, we are setting a min number of orbits the rocket must do 
     [SerializeField] int minRevolutions;
-    public GameObject canvas;
+    [SerializeField] GameObject canvas;
+    [SerializeField] GameObject endMessage;
+    [SerializeField] Text endText;
     Manager sct;
-    public GameObject endMessage;
 
     // Start is called before the first frame update
     void Start()
@@ -55,6 +57,7 @@ public class Goal : MonoBehaviour
                 // Change levels and scores
                 sct.changeScore(1);
                 // Show achievement message
+                endText.text = "¡Nivel completado!";
                 endMessage.SetActive(true);
                 // Wait for 5 seconds before showing next scene
                 StartCoroutine(SceneCoroutine());

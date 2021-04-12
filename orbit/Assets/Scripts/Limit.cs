@@ -5,17 +5,23 @@ Valeria Pineda
 10/04/2021
 */
 
+using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Limit : MonoBehaviour
 {
-    public GameObject canvas;
+    [SerializeField] GameObject canvas;
+    [SerializeField] GameObject endMessage;
+    [SerializeField] Text endText;
     Manager sct;
+    GameObject rocket;
     // Start is called before the first frame update
     void Start()
     {
         sct = canvas.GetComponent<Manager>();
+        rocket = GameObject.FindWithTag("Player");
     }
 
     void OnTriggerExit2D(Collider2D col) {
@@ -24,23 +30,31 @@ public class Limit : MonoBehaviour
             // Subtract life
             sct.changeLives(-1);
 
+            // Show message to try again
+            endText.text = "Intenta de nuevo :(";
+            endMessage.SetActive(true);
+            StartCoroutine(delay());
+
             // Return rocket to start position
-            GameObject rocket = GameObject.FindWithTag("Player");
             rocket.transform.position = new Vector3(-0.03000032f, -3.17f, 0);
             rocket.transform.rotation = Quaternion.Euler(0, 0, -42.381f);
+            rocket.GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
+            rocket.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+        }
+    }
 
-            if(PlayerPrefs.GetInt("lives") > 0){
-                // Be able to throw it once more
-                rocket.GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
-                rocket.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
-                rocket.GetComponent<Launch>().canDrag = true;
-                rocket.GetComponent<Goal>().numberOfRevolutions = 0;
-            }
+    IEnumerator delay() {
+        yield return new WaitForSeconds(1.8f);
+        endMessage.SetActive(false);
 
-            else{
-                SceneManager.LoadScene("End");
-            }
-            
+        if(PlayerPrefs.GetInt("lives") > 0){
+            // Be able to throw it once more
+            rocket.GetComponent<Launch>().canDrag = true;
+            rocket.GetComponent<Goal>().numberOfRevolutions = 0;
+        }
+
+        else{
+            SceneManager.LoadScene("End");
         }
     }
 }

@@ -659,7 +659,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 321, y: -279}
+  m_AnchoredPosition: {x: 321, y: -285}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &775328520
@@ -733,6 +733,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 2039318985}
+  endMessage: {fileID: 533240659}
+  endText: {fileID: 1393027207}
 --- !u!1 &852598386
 GameObject:
   m_ObjectHideFlags: 0
@@ -1043,6 +1045,7 @@ MonoBehaviour:
   minRevolutions: 2
   canvas: {fileID: 2039318985}
   endMessage: {fileID: 533240659}
+  endText: {fileID: 1393027207}
 --- !u!114 &887582409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1210,7 +1213,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\xA1Nivel completado!"
+  m_Text: "Intenta de nuevo :(\n\xA1Nivel completado!"
 --- !u!222 &1393027208
 CanvasRenderer:
   m_ObjectHideFlags: 0
