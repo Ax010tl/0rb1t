@@ -13,7 +13,7 @@ public class Gravity : MonoBehaviour
     // Public properties
     [SerializeField] GameObject planet;
     [SerializeField] GameObject background;
-    [SerializeField] public Camera mainCamera;
+    public Camera mainCamera;
     [SerializeField] double G; // Start with 6.67*Math.Pow(10,-11)
     // Rigid bodies
     Rigidbody2D bodyRocket;
