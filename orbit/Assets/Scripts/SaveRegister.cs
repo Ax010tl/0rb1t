@@ -70,14 +70,14 @@ public class SaveRegister : MonoBehaviour
                 }
                 break;
             case 2:
-                if (state.gameObject.activeSelf) {
+                if (state.text != "Escoge tu estado...") {
                     PlayerPrefs.SetString("state", state.text);
                     StartCoroutine(coolMotion(-1));
                     currScreen++;
                 }
                 break;
             case 3:
-                if (gender.gameObject.activeSelf) {
+                if (gender.text != "Escoge tu género...") {
                     PlayerPrefs.SetString("gender", gender.text);
                     StartCoroutine(coolMotion(-1));
                     currScreen++;
@@ -85,7 +85,7 @@ public class SaveRegister : MonoBehaviour
                 break;
             // Last register, go to Level 1
             case 4:
-                if (schoolLevel.gameObject.activeSelf) {
+                if (schoolLevel.text != "Escoge uno...") {
                     PlayerPrefs.SetString("schoolLevel", schoolLevel.text);
                     fader.goToScene("Level1");
                 }
