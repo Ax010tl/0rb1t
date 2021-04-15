@@ -3,7 +3,7 @@ Register the user's info. Manages motion and info saving.
 Valeria Pineda
 12/04/2021
 */
-
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -22,19 +22,19 @@ public class SaveRegister : MonoBehaviour
     [SerializeField] Text schoolLevelParent;
     [SerializeField] Button ButtonNext;
     int currScreen;
-    // Distance in x between registers
-    int moveIt;
+    int yPos;
 
     // Start is called before the first frame update
     void Start()
     {
         currScreen = 0;
-        moveIt = 700;
 
+        // Default settings for beginning of game
         PlayerPrefs.SetInt("lives", 10);        
         PlayerPrefs.SetInt("level", 1);        
         PlayerPrefs.SetInt("score", 0);
 
+        // Create PlayerPrefs for STEM subjects interest
         PlayerPrefs.SetInt("biology", 0);
         PlayerPrefs.SetInt("chemistry", 0);
         PlayerPrefs.SetInt("engineering", 0);
@@ -42,20 +42,18 @@ public class SaveRegister : MonoBehaviour
         PlayerPrefs.SetInt("physics", 0);
         PlayerPrefs.SetInt("tech", 0);
 
-        alias.text = "";
-        age.text = "";
-        
-        // ButtonNext.gameObject.SetActive(false);
+        yPos = 123;
     }
 
     public void next() {
+        // Ensures user has entered data before going to next register
         switch (currScreen)
         {
             case 0:
                 if (alias.text == "") {}
                 else {
                     PlayerPrefs.SetString("alias", alias.text);
-                    move(-moveIt);
+                    StartCoroutine(coolMotion(-1));
                     currScreen++;
                 }
                 break;
@@ -63,21 +61,21 @@ public class SaveRegister : MonoBehaviour
                 if (age.text == "") {}
                 else {
                     PlayerPrefs.SetString("age", age.text);
-                    move(-moveIt);
+                    StartCoroutine(coolMotion(-1));
                     currScreen++;
                 }
                 break;
             case 2:
                 if (state.gameObject.activeSelf) {
                     PlayerPrefs.SetString("state", state.text);
-                    move(-moveIt);
+                    StartCoroutine(coolMotion(-1));
                     currScreen++;
                 }
                 break;
             case 3:
                 if (gender.gameObject.activeSelf) {
                     PlayerPrefs.SetString("gender", gender.text);
-                    move(-moveIt);
+                    StartCoroutine(coolMotion(-1));
                     currScreen++;
                 }
                 break;
@@ -85,7 +83,7 @@ public class SaveRegister : MonoBehaviour
             case 4:
                 if (schoolLevel.gameObject.activeSelf) {
                     PlayerPrefs.SetString("schoolLevel", schoolLevel.text);
-                    // Mensaje de yendo a nivel 1
+                    // Mensaje de yendo a nivel 1 WIP
                     SceneManager.LoadScene( "Level1" );
                 }
                 break;
@@ -99,29 +97,31 @@ public class SaveRegister : MonoBehaviour
         }
         else {
             // Go to screen to the left
-            move(moveIt);
+            StartCoroutine(coolMotion(1));
             currScreen--;
-            ButtonNext.gameObject.SetActive(true);
         }
     }
 
-    // Pretty motion :D (WIP)
-    void move(int motion) {
+    // Pretty motion :D
+    IEnumerator coolMotion(int direction) {
         // If they're put in a parent object, they won't respond well to screen resize
         RectTransform aliasPos = aliasParent.GetComponent<RectTransform>();
-        aliasPos.anchoredPosition = new Vector2(aliasPos.anchoredPosition.x + motion, aliasPos.anchoredPosition.y);
-
         RectTransform agePos = ageParent.GetComponent<RectTransform>();
-        agePos.anchoredPosition = new Vector2(agePos.anchoredPosition.x + motion, agePos.anchoredPosition.y);
-
         RectTransform statePos = stateParent.GetComponent<RectTransform>();
-        statePos.anchoredPosition = new Vector2(statePos.anchoredPosition.x + motion, statePos.anchoredPosition.y);
-
         RectTransform genderPos = genderParent.GetComponent<RectTransform>();
-        genderPos.anchoredPosition = new Vector2(genderPos.anchoredPosition.x + motion, genderPos.anchoredPosition.y);
-        
         RectTransform schoolLevelPos = schoolLevelParent.GetComponent<RectTransform>();
-        schoolLevelPos.anchoredPosition = new Vector2(schoolLevelPos.anchoredPosition.x + motion, schoolLevelPos.anchoredPosition.y);
+
+        // Move to the next register (700 away)
+        for (int i = 0; i < 35; i++)
+        {
+            aliasPos.anchoredPosition = new Vector2(aliasPos.anchoredPosition.x +20*direction, yPos);
+            agePos.anchoredPosition = new Vector2(agePos.anchoredPosition.x +20*direction, yPos);
+            statePos.anchoredPosition = new Vector2(statePos.anchoredPosition.x +20*direction, yPos);
+            genderPos.anchoredPosition = new Vector2(genderPos.anchoredPosition.x +20*direction, yPos);
+            schoolLevelPos.anchoredPosition = new Vector2(schoolLevelPos.anchoredPosition.x +20*direction, yPos);
+
+            yield return null;
+        }
     }
 
 }
