@@ -21,6 +21,8 @@ public class SaveRegister : MonoBehaviour
     [SerializeField] Text genderParent;
     [SerializeField] Text schoolLevelParent;
     [SerializeField] Button ButtonNext;
+    [SerializeField] Image levelFade;
+    LevelFader fader;
     int currScreen;
     int yPos;
 
@@ -43,6 +45,8 @@ public class SaveRegister : MonoBehaviour
         PlayerPrefs.SetInt("tech", 0);
 
         yPos = 123;
+
+        fader = levelFade.GetComponent<LevelFader>();
     }
 
     public void next() {
@@ -83,8 +87,7 @@ public class SaveRegister : MonoBehaviour
             case 4:
                 if (schoolLevel.gameObject.activeSelf) {
                     PlayerPrefs.SetString("schoolLevel", schoolLevel.text);
-                    // Mensaje de yendo a nivel 1 WIP
-                    SceneManager.LoadScene( "Level1" );
+                    fader.goToScene("Level1");
                 }
                 break;
         }
