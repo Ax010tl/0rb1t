@@ -45,7 +45,7 @@ public class SaveRegister : MonoBehaviour
         alias.text = "";
         age.text = "";
         
-        ButtonNext.gameObject.SetActive(false);
+        // ButtonNext.gameObject.SetActive(false);
     }
 
     public void next() {
@@ -57,7 +57,6 @@ public class SaveRegister : MonoBehaviour
                     PlayerPrefs.SetString("alias", alias.text);
                     move(-moveIt);
                     currScreen++;
-                    ButtonNext.gameObject.SetActive(false);
                 }
                 break;
             case 1:
@@ -66,7 +65,6 @@ public class SaveRegister : MonoBehaviour
                     PlayerPrefs.SetString("age", age.text);
                     move(-moveIt);
                     currScreen++;
-                    ButtonNext.gameObject.SetActive(false);
                 }
                 break;
             case 2:
@@ -74,7 +72,6 @@ public class SaveRegister : MonoBehaviour
                     PlayerPrefs.SetString("state", state.text);
                     move(-moveIt);
                     currScreen++;
-                    ButtonNext.gameObject.SetActive(false);
                 }
                 break;
             case 3:
@@ -82,7 +79,6 @@ public class SaveRegister : MonoBehaviour
                     PlayerPrefs.SetString("gender", gender.text);
                     move(-moveIt);
                     currScreen++;
-                    ButtonNext.gameObject.SetActive(false);
                 }
                 break;
             // Last register, go to Level 1
@@ -91,12 +87,6 @@ public class SaveRegister : MonoBehaviour
                     PlayerPrefs.SetString("schoolLevel", schoolLevel.text);
                     // Mensaje de yendo a nivel 1
                     SceneManager.LoadScene( "Level1" );
-
-                    print(PlayerPrefs.GetString("alias"));
-                    print(PlayerPrefs.GetString("age"));
-                    print(PlayerPrefs.GetString("state"));
-                    print(PlayerPrefs.GetString("gender"));
-                    print(PlayerPrefs.GetString("schoolLevel"));
                 }
                 break;
         }
