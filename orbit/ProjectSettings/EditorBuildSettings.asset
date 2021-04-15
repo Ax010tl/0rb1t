@@ -4,5 +4,53 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Welcome.unity
+    guid: 90b836c4681064ee993132146e5f7114
+  - enabled: 1
+    path: Assets/Scenes/Register.unity
+    guid: 82238d3c3c6f94962a47eea2ecfa7f3a
+  - enabled: 1
+    path: Assets/Scenes/Level1.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/End.unity
+    guid: aedd872667cd745fb84b8b4c2aa4450b
+  - enabled: 1
+    path: Assets/Scenes/FunFactScenes/FFBio1.unity
+    guid: 363cff8d55eb1524186343a3acf9ff9f
+  - enabled: 1
+    path: Assets/Scenes/FunFactScenes/FFBio2.unity
+    guid: 64eff4eb675144345ba77959ed755586
+  - enabled: 1
+    path: Assets/Scenes/FunFactScenes/FFChem1.unity
+    guid: daad5f43b2db3447aa75c02b27316db7
+  - enabled: 1
+    path: Assets/Scenes/FunFactScenes/FFChem2.unity
+    guid: b3c3b5c15f46e476090ec7def1e2444e
+  - enabled: 1
+    path: Assets/Scenes/FunFactScenes/FFEng1.unity
+    guid: ab3919af0276f4f2f8f41da2f3baad81
+  - enabled: 1
+    path: Assets/Scenes/FunFactScenes/FFEng2.unity
+    guid: be07c926e8a9c4b0894c3503fdc24782
+  - enabled: 1
+    path: Assets/Scenes/FunFactScenes/FFMath1.unity
+    guid: 1e0985c52f1a64cc0a175dcc279f6ba9
+  - enabled: 1
+    path: Assets/Scenes/FunFactScenes/FFMath2.unity
+    guid: f5ccc4f58884f4d6d90f85c65ecf12bc
+  - enabled: 1
+    path: Assets/Scenes/FunFactScenes/FFPhys1.unity
+    guid: 9b11f14f0142847348d3175cb1ce4927
+  - enabled: 1
+    path: Assets/Scenes/FunFactScenes/FFPhys2.unity
+    guid: 99d58d815863840caac924345cd41162
+  - enabled: 1
+    path: Assets/Scenes/FunFactScenes/FFTech1.unity
+    guid: e16ac2438d18747b5a8b77c1722e56da
+  - enabled: 1
+    path: Assets/Scenes/FunFactScenes/FFTech2.unity
+    guid: d5294c66cb385461fbd49a174baa4f8f
   m_configObjects: {}

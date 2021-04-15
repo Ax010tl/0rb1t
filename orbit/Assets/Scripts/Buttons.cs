@@ -1,7 +1,6 @@
 /*
 Each method is a button's behaviour. All need to be public so button
 inspector can access them.
-* Application.Quit won't work while in the editor.
 Valeria Pineda
 11/03/2021
 */
@@ -16,7 +15,6 @@ public class Buttons : MonoBehaviour
     {
         Debug.Log("Exit Game");
         SceneManager.LoadScene("End");
-        // Application.Quit();
     }
 
     public void omit()
