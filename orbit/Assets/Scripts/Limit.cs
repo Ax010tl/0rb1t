@@ -27,34 +27,45 @@ public class Limit : MonoBehaviour
     void OnTriggerExit2D(Collider2D col) {
         if(col.tag == "Player")
         {
-            // Subtract life
-            sct.changeLives(-1);
-
-            // Show message to try again
-            endText.text = "Intenta de nuevo :(";
-            endMessage.SetActive(true);
-            StartCoroutine(delay());
-
-            // Return rocket to start position
-            rocket.transform.position = new Vector3(-0.03000032f, -3.17f, 0);
-            rocket.transform.rotation = Quaternion.Euler(0, 0, -42.381f);
-            rocket.GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
-            rocket.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+            manageCollision();
         }
     }
 
-    IEnumerator delay() {
+    public void manageCollision() {
+        // Subtract life
+        sct.changeLives(-1);
+
+        // Return rocket to start position
+        rocket.transform.position = new Vector3(-0.03000032f, -3.17f, 0);
+        rocket.transform.rotation = Quaternion.Euler(0, 0, -42.381f);
+        rocket.GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
+        rocket.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+
+        if (PlayerPrefs.GetInt("lives") > 0) {
+            // Show message to try again
+            endText.text = "Intenta de nuevo :(";
+            endMessage.SetActive(true);
+            StartCoroutine(delayRestart());
+        }
+        else {
+            // Show end of game message
+            endText.text = "¡Ya no tienes vidas!";
+            endMessage.SetActive(true);
+            StartCoroutine(delayEnd());
+        }
+    }
+
+    IEnumerator delayRestart() {
         yield return new WaitForSeconds(1.8f);
         endMessage.SetActive(false);
 
-        if(PlayerPrefs.GetInt("lives") > 0){
-            // Be able to throw it once more
-            rocket.GetComponent<Launch>().canDrag = true;
-            rocket.GetComponent<Goal>().numberOfRevolutions = 0;
-        }
+        // Be able to throw it once more
+        rocket.GetComponent<Launch>().canDrag = true;
+        rocket.GetComponent<Goal>().numberOfRevolutions = 0;
+    }
 
-        else{
-            SceneManager.LoadScene("End");
-        }
+    IEnumerator delayEnd() {
+        yield return new WaitForSeconds(4.0f);
+        SceneManager.LoadScene("End");
     }
 }

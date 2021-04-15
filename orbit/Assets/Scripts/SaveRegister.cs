@@ -31,7 +31,7 @@ public class SaveRegister : MonoBehaviour
         currScreen = 0;
         moveIt = 700;
 
-        PlayerPrefs.SetInt("lives", 10);        
+        PlayerPrefs.SetInt("lives", 1);        
         PlayerPrefs.SetInt("level", 1);        
         PlayerPrefs.SetInt("score", 0);
 
@@ -41,6 +41,8 @@ public class SaveRegister : MonoBehaviour
         PlayerPrefs.SetInt("math", 0);
         PlayerPrefs.SetInt("physics", 0);
         PlayerPrefs.SetInt("tech", 0);
+
+        PlayerPrefs.SetInt("highscore", 2);
 
         alias.text = "";
         age.text = "";

@@ -17,7 +17,9 @@ public class Goal : MonoBehaviour
     [SerializeField] GameObject canvas;
     [SerializeField] GameObject endMessage;
     [SerializeField] Text endText;
+    [SerializeField] GameObject bounds;
     Manager sct;
+    Limit limit;
 
     // Start is called before the first frame update
     void Start()
@@ -29,19 +31,12 @@ public class Goal : MonoBehaviour
         sct.displayAll();
         // Hide end message
         endMessage.SetActive(false);
+        // Call Limit.cs to handle collision with planet
+        limit = bounds.GetComponent<Limit>();
     }
 
     void Update() {
         sct.displayAll();
-    }
-    
-    //If the player is out of lives, it's game over
-    private void HandleLives ()
-    {
-        if(PlayerPrefs.GetInt("lives") <= 0){
-            SceneCoroutine();
-            SceneManager.LoadScene("End");
-        }
     }
 
     void OnTriggerEnter2D(Collider2D collider){
@@ -69,8 +64,7 @@ public class Goal : MonoBehaviour
             // Once number of revolutions has been reached, it won't be counted if player loses lives
             if(numberOfRevolutions == minRevolutions) {}
             else {
-                sct.changeLives(-1);
-                HandleLives();
+                limit.manageCollision();
             }
         }
     }
