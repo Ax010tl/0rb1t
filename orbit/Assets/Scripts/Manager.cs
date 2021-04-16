@@ -91,6 +91,7 @@ public class Manager : MonoBehaviour
         scoreBox.text = scoreText + score.ToString();
     }
 
+    // Show message when lives and score change
     IEnumerator fade(Text textBox, string text)
     {
         textBox.text = text;
@@ -99,7 +100,7 @@ public class Manager : MonoBehaviour
         while (textBox.color.a > 0.0f)
         {
             textBox.color = new Color(textBox.color.r, textBox.color.g, textBox.color.b, textBox.color.a - Time.deltaTime);
-            pos.anchoredPosition = new Vector3(pos.anchoredPosition.x, pos.anchoredPosition.y + 0.3f);
+            pos.anchoredPosition = new Vector3(pos.anchoredPosition.x, pos.anchoredPosition.y + 0.01f);
             yield return null;
         }
     }
