@@ -17,10 +17,14 @@ public class Goal : MonoBehaviour
     [SerializeField] GameObject canvas;
     [SerializeField] GameObject endMessage;
     [SerializeField] Text endText;
+
+    [SerializeField] Text changeText;
     [SerializeField] GameObject bounds;
     Manager sct;
     Limit limit;
 
+    GameObject[] obstacles;
+    GameObject obstacle; 
     // Start is called before the first frame update
     void Start()
     {
@@ -33,10 +37,22 @@ public class Goal : MonoBehaviour
         endMessage.SetActive(false);
         // Call Limit.cs to handle collision with planet
         limit = bounds.GetComponent<Limit>();
+
+        // An obstacle will be activated once the player reaches level 5
+        obstacles = GameObject.FindGameObjectsWithTag("Obstacle");
+        obstacle = obstacles[0];
+        obstacle.SetActive(false);
     }
 
     void Update() {
         sct.displayAll();
+
+        if(PlayerPrefs.GetInt("level") >= 5){
+            obstacle.SetActive(true);
+        }
+        else{
+            obstacle.SetActive(false);
+        }
     }
 
     //If the player is out of lives, it's game over
@@ -73,7 +89,7 @@ public class Goal : MonoBehaviour
         // If the rocket collides with the planet, lives are subtracted
         if(collider.tag == "Planet") {
             // Once number of revolutions has been reached, it won't be counted if player loses lives
-            if(numberOfRevolutions == minRevolutions) {}
+            if(numberOfRevolutions >= minRevolutions) {return;}
             else {
                 limit.manageCollision();
             }
@@ -82,10 +98,9 @@ public class Goal : MonoBehaviour
         // If the rocket collides with an obstacle, lives(?) are subtracted
         if(collider.tag == "Obstacle") {
             // Once number of revolutions has been reached, it won't be counted if player collides with obstacles
-            if(numberOfRevolutions == minRevolutions) {}
+            if(numberOfRevolutions >= minRevolutions) {return;}
             else {
-                sct.changeLives(-1);
-                HandleLives();
+                sct.changeScore(-1);
             }
         }
     }

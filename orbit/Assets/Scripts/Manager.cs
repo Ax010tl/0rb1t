@@ -29,17 +29,23 @@ public class Manager : MonoBehaviour
     }
 
     public void changeScore(int num) {
-        score += num;
-        PlayerPrefs.SetInt("score", score);
-        if (score%10 == 0) {
-            changeLives(1);
+        //So we dont end up with negative scores
+        if(score == 0 && num < 0){
+            return;
         }
-        
-        if(num < 0) {
-            StartCoroutine(fade(scoreAlert, num.ToString()));
-        }
-        else {
-            StartCoroutine(fade(scoreAlert, "+" + num));
+        else{
+            score += num;
+            PlayerPrefs.SetInt("score", score);
+            if (score%10 == 0) {
+                changeLives(1);
+            }
+            
+            if(num < 0) {
+                StartCoroutine(fade(scoreAlert, "" + num));
+            }
+            else {
+                StartCoroutine(fade(scoreAlert, "+" + num));
+            }
         }
     }
 
