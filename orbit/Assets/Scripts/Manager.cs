@@ -34,21 +34,27 @@ public class Manager : MonoBehaviour
     }
 
     public void changeScore(int num) {
-        score += num;
-        PlayerPrefs.SetInt("score", score);
-        if (score%10 == 0) {
-            changeLives(1);
+        //So we dont end up with negative scores
+        if(score == 0 && num < 0){
+            return;
         }
-        
-        // Subtract score
-        if(num < 0) {
-            sfx.scoreMinusSound();
-            StartCoroutine(fade(scoreAlert, num.ToString()));
-        }
-        // Add score
-        else {
-            sfx.scorePlusSound();
-            StartCoroutine(fade(scoreAlert, "+" + num));
+        else{
+            score += num;
+            PlayerPrefs.SetInt("score", score);
+            if (score%10 == 0) {
+                changeLives(1);
+            }
+            
+            // Subtract score
+            if(num < 0) {
+                sfx.scoreMinusSound();
+                StartCoroutine(fade(scoreAlert, "" + num));
+            }
+            // Add score
+            else {
+                sfx.scorePlusSound();
+                StartCoroutine(fade(scoreAlert, "+" + num));
+            }
         }
     }
 
