@@ -6,7 +6,6 @@ Valeria Pineda
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class SaveRegister : MonoBehaviour
 {
@@ -96,7 +95,7 @@ public class SaveRegister : MonoBehaviour
     public void previous() {
         // Go to home screen
         if(currScreen == 0) {
-            SceneManager.LoadScene("Welcome");
+            fader.goToScene("Welcome");
         }
         else {
             // Go to screen to the left

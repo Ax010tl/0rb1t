@@ -6,7 +6,6 @@ Valeria Pineda
 */
 
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class TheEnd : MonoBehaviour 
@@ -15,6 +14,8 @@ public class TheEnd : MonoBehaviour
     [SerializeField] Text scoreText;
     [SerializeField] Text levelText;
     [SerializeField] Text highScoreText;
+    [SerializeField] GameObject fade;
+    LevelFader fader;
     SendFormData message;
 
     private void Start() {
@@ -25,20 +26,11 @@ public class TheEnd : MonoBehaviour
         levelText.text = "Completaste " + PlayerPrefs.GetInt("level") + " nivel" + (PlayerPrefs.GetInt("level") == 1 ? "" : "es");
         scoreText.text = PlayerPrefs.GetInt("score") + " puntos";
 
-        if (PlayerPrefs.GetInt("highscore") < PlayerPrefs.GetInt("score")) {
-            PlayerPrefs.SetInt("highScore", PlayerPrefs.GetInt("score"));
-
-            scoreText.color = new Color(0.9725491f, 0.7764707f, 0.2f);
-            highScoreText.color = scoreText.color;
-        }    
-    }
-
-    private void Update() {
-        highScore();
+        fader = fade.GetComponent<LevelFader>();
     }
 
     public void restartGame() {
-        PlayerPrefs.SetInt("lives", 1);        
+        PlayerPrefs.SetInt("lives", 10);        
         PlayerPrefs.SetInt("level", 1);        
         PlayerPrefs.SetInt("score", 0);
 
@@ -49,16 +41,6 @@ public class TheEnd : MonoBehaviour
         PlayerPrefs.SetInt("physics", 0);
         PlayerPrefs.SetInt("tech", 0);
 
-        SceneManager.LoadScene("Level1");
-    }
-
-    private void highScore() {
-        // if (PlayerPrefs.GetInt("highscore") < PlayerPrefs.GetInt("score")) {
-        //     PlayerPrefs.SetInt("highScore", PlayerPrefs.GetInt("score"));
-
-        //     scoreText.color = new Color(0.9725491f, 0.7764707f, 0.2f);
-        //     highScoreText.color = scoreText.color;
-        // }
-        highScoreText.text = "Puntuación más alta:\n" + PlayerPrefs.GetInt("highscore");
+        fader.goToScene("Level1");
     }
 }
