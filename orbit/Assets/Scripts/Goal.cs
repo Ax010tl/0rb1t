@@ -19,6 +19,8 @@ public class Goal : MonoBehaviour
     [SerializeField] Text endText;
     [SerializeField] GameObject changeMessage;
     [SerializeField] Text changeText;
+    [SerializeField] Text gravityText;
+    int G; 
     [SerializeField] GameObject bounds;
     Manager sct;
     Limit limit;
@@ -55,6 +57,10 @@ public class Goal : MonoBehaviour
             changeMessage.SetActive(true);
             StartCoroutine(disappear());
         }
+
+        G = PlayerPrefs.GetInt("level") + 7;
+        gravityText.text = "Gravedad: " + G.ToString(); 
+        StartCoroutine(disappearGravity());
     }
 
     void Update() {
@@ -73,6 +79,12 @@ public class Goal : MonoBehaviour
     {
        yield return new WaitForSeconds(1); 
        changeMessage.SetActive(false);
+    }
+
+    IEnumerator disappearGravity ()
+    {
+       yield return new WaitForSeconds(2); 
+       gravityText.enabled = false;
     }
 
     //If the player is out of lives, it's game over
