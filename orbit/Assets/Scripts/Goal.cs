@@ -115,7 +115,11 @@ public class Goal : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collider){
         // Add points to score if rocket collides with a powerup
         if(collider.tag == "PowerUp"){
-            sct.changeScore(1);
+            // Once number of revolutions has been reached, it won't be counted if player gets powerup
+            if(numberOfRevolutions >= minRevolutions) {return;}
+            else {
+                sct.changeScore(1);
+            }
         }
 
         // We need to add points if it manages the minimum complete orbits

@@ -59,6 +59,9 @@ public class Manager : MonoBehaviour
     }
 
     public void changeLives(int num) {
+        
+
+        // Player can't have more than 10 lives
         if (lives+num <= 10) {
             lives += num;
             PlayerPrefs.SetInt("lives", lives);

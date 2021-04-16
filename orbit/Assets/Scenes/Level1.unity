@@ -1995,6 +1995,7 @@ MonoBehaviour:
   livesAdd: {fileID: 8300000, guid: 896a8fff9ec284d67a1bd4121caf9d9c, type: 3}
   planetCollision: {fileID: 8300000, guid: 35f90b72b8fe7469d9dbc3a14c9db2fb, type: 3}
   limitReached: {fileID: 8300000, guid: af2192727cb1647e09b9471282fb6e93, type: 3}
+  gameOver: {fileID: 8300000, guid: 2f3af66b6d33e4bb5afa6e5373e9f56b, type: 3}
 --- !u!82 &2039318992
 AudioSource:
   m_ObjectHideFlags: 0
