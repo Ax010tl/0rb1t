@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+Manage behaviours in welcome screen
+Valeria Pineda
+16/04/2021
+*/
+
+using System;
 using UnityEngine;
 
 public class WelcomeScreen : MonoBehaviour
@@ -21,6 +27,7 @@ public class WelcomeScreen : MonoBehaviour
         updateTrayectoryAngle();
     }
 
+    // Move rocket around
     void move() {
         t += Time.deltaTime * 0.2f;
 
@@ -30,6 +37,8 @@ public class WelcomeScreen : MonoBehaviour
 
         rocket.transform.position = new Vector3(x, y, z);
     }
+
+    // Change direction rocket is facing
     void updateTrayectoryAngle(){
         dis = rocket.transform.position - planet.transform.position;
         float angleRadians = (float) Math.Atan2(dis.y, dis.x);
@@ -37,6 +46,7 @@ public class WelcomeScreen : MonoBehaviour
         rocket.transform.rotation = Quaternion.Euler(0, 0, angleDegrees-42.381f);
     }
 
+    // Go to register screens
     public void startGame() {
         fader.goToScene("Register");
     }
