@@ -1,5 +1,5 @@
 ﻿/*
-Manage behaviours in welcome screen
+Manage behaviours in welcome screen: buttons, movement, audio.
 Valeria Pineda
 16/04/2021
 */
@@ -12,6 +12,7 @@ public class WelcomeScreen : MonoBehaviour
     [SerializeField] GameObject rocket;
     [SerializeField] GameObject planet;
     [SerializeField] GameObject levelFade;
+    [SerializeField] GameObject music;
     LevelFader fader;
     Vector3 dis;
     float t = 0;
@@ -49,5 +50,10 @@ public class WelcomeScreen : MonoBehaviour
     // Go to register screens
     public void startGame() {
         fader.goToScene("Register");
+    }
+
+    void Awake()
+    {
+        DontDestroyOnLoad(music);
     }
 }
