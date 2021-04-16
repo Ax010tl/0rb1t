@@ -64,7 +64,7 @@ public class Limit : MonoBehaviour
         rocket.GetComponent<Goal>().numberOfRevolutions = 0;
     }
 
-    IEnumerator delayEnd() {
+    public IEnumerator delayEnd() {
         yield return new WaitForSeconds(4.0f);
         SceneManager.LoadScene("End");
     }

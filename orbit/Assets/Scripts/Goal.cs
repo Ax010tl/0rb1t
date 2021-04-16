@@ -39,6 +39,17 @@ public class Goal : MonoBehaviour
         sct.displayAll();
     }
 
+    //If the player is out of lives, it's game over
+    private void HandleLives ()
+    {
+        if(PlayerPrefs.GetInt("lives") <= 0){
+            // Show end of game message
+            endText.text = "¡Ya no tienes vidas!";
+            endMessage.SetActive(true);
+            StartCoroutine(limit.delayEnd());
+        }
+    }
+
     void OnTriggerEnter2D(Collider2D collider){
         // Add points to score if rocket collides with a powerup
         if(collider.tag == "PowerUp"){
@@ -65,6 +76,16 @@ public class Goal : MonoBehaviour
             if(numberOfRevolutions == minRevolutions) {}
             else {
                 limit.manageCollision();
+            }
+        }
+
+        // If the rocket collides with an obstacle, lives(?) are subtracted
+        if(collider.tag == "Obstacle") {
+            // Once number of revolutions has been reached, it won't be counted if player collides with obstacles
+            if(numberOfRevolutions == minRevolutions) {}
+            else {
+                sct.changeLives(-1);
+                HandleLives();
             }
         }
     }
