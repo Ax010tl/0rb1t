@@ -17,16 +17,20 @@ public class Limit : MonoBehaviour
     [SerializeField] Text endText;
     Manager sct;
     GameObject rocket;
+    AudioManager sfx;
+
     // Start is called before the first frame update
     void Start()
     {
         sct = canvas.GetComponent<Manager>();
         rocket = GameObject.FindWithTag("Player");
+        sfx = canvas.GetComponent<AudioManager>();
     }
 
     void OnTriggerExit2D(Collider2D col) {
         if(col.tag == "Player")
         {
+            sfx.limitReachedSound();
             manageCollision();
         }
     }

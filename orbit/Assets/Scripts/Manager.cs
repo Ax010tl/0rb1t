@@ -19,9 +19,14 @@ public class Manager : MonoBehaviour
     [SerializeField] string levelText;
     [SerializeField] Text livesAlert;
     [SerializeField] Text scoreAlert;
+    AudioManager sfx;
 
     int score, lives, level;
     
+    void Start() {
+        sfx = GetComponent<AudioManager>();
+    }
+
     void Update() {
         score = PlayerPrefs.GetInt("score");
         lives = PlayerPrefs.GetInt("lives");
@@ -35,10 +40,14 @@ public class Manager : MonoBehaviour
             changeLives(1);
         }
         
+        // Subtract score
         if(num < 0) {
+            sfx.scoreMinusSound();
             StartCoroutine(fade(scoreAlert, num.ToString()));
         }
+        // Add score
         else {
+            sfx.scorePlusSound();
             StartCoroutine(fade(scoreAlert, "+" + num));
         }
     }
@@ -49,17 +58,20 @@ public class Manager : MonoBehaviour
             PlayerPrefs.SetInt("lives", lives);
         }
 
+        // Subtract lives
         if(num < 0) {
             StartCoroutine(fade(livesAlert, num.ToString()));
         }
+        // Add lives
         else {
-            StartCoroutine(fade(livesAlert, "+" + num));
+            StartCoroutine(addLives(num));
         }
     }
 
     public void changeLevel(int num) {
         level += num;
         PlayerPrefs.SetInt("level", level);
+        sfx.levelChangeSound();
     }
 
     // Use this method when displaying inside level
@@ -103,5 +115,11 @@ public class Manager : MonoBehaviour
             pos.anchoredPosition = new Vector3(pos.anchoredPosition.x, pos.anchoredPosition.y + 0.01f);
             yield return null;
         }
+    }
+
+    IEnumerator addLives(int num) {
+        yield return new WaitForSeconds(0.5f);
+        sfx.livesPlusSound();
+        StartCoroutine(fade(livesAlert, "+" + num));
     }
 }

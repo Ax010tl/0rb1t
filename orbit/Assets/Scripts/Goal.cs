@@ -20,6 +20,7 @@ public class Goal : MonoBehaviour
     [SerializeField] GameObject bounds;
     Manager sct;
     Limit limit;
+    AudioManager sfx;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +34,8 @@ public class Goal : MonoBehaviour
         endMessage.SetActive(false);
         // Call Limit.cs to handle collision with planet
         limit = bounds.GetComponent<Limit>();
+        // Call AudioManager.cs to play sounds
+        sfx = canvas.GetComponent<AudioManager>();
     }
 
     void Update() {
@@ -62,9 +65,6 @@ public class Goal : MonoBehaviour
             if(numberOfRevolutions == minRevolutions){
                 // Change levels and scores
                 sct.changeScore(1);
-                // Show achievement message
-                endText.text = "¡Nivel completado!";
-                endMessage.SetActive(true);
                 // Wait for 5 seconds before showing next scene
                 StartCoroutine(SceneCoroutine());
             }
@@ -75,6 +75,7 @@ public class Goal : MonoBehaviour
             // Once number of revolutions has been reached, it won't be counted if player loses lives
             if(numberOfRevolutions == minRevolutions) {}
             else {
+                sfx.planetCollisionSound();
                 limit.manageCollision();
             }
         }
@@ -93,8 +94,13 @@ public class Goal : MonoBehaviour
     // Wait a few seconds before new scene and level
     IEnumerator SceneCoroutine()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(1.5f);
         sct.changeLevel(1);
+        // Show achievement message
+        endText.text = "¡Nivel completado!";
+        endMessage.SetActive(true);
+        
+        yield return new WaitForSeconds(1);
         SceneManager.LoadScene( getFunFactScene() );
     }
 
