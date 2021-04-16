@@ -46,19 +46,27 @@ public class Goal : MonoBehaviour
         obstacle = obstacles[0];
         obstacle.SetActive(false);
 
+        // Message to let the users know gravity increases with each level
         if(PlayerPrefs.GetInt("level") == 2){
             changeText.text = "La gravedad ha aumentado";
             changeMessage.SetActive(true);
             StartCoroutine(disappear());
         }
 
+        // Message to let the users know there will be obstacles from that level on
         if(PlayerPrefs.GetInt("level") == 5){
             changeText.text = "Cuidado con los asteroides";
             changeMessage.SetActive(true);
             StartCoroutine(disappear());
         }
 
+        // How we manage Gravity for each level
         G = PlayerPrefs.GetInt("level") + 7;
+        if( G > 30){
+            G = 30; 
+        }
+
+        // Text with the planet's gravity, which disappears after 2 seconds
         gravityText.text = "Gravedad: " + G.ToString(); 
         StartCoroutine(disappearGravity());
     }
@@ -66,6 +74,7 @@ public class Goal : MonoBehaviour
     void Update() {
         sct.displayAll();
 
+        // Asteroids will show up on level 5
         if(PlayerPrefs.GetInt("level") >= 5){
             obstacle.SetActive(true);
         }
@@ -77,14 +86,16 @@ public class Goal : MonoBehaviour
 
     IEnumerator disappear ()
     {
-       yield return new WaitForSeconds(1); 
-       changeMessage.SetActive(false);
+        // Disappear messages after 1 second
+        yield return new WaitForSeconds(1); 
+        changeMessage.SetActive(false);
     }
 
     IEnumerator disappearGravity ()
     {
-       yield return new WaitForSeconds(2); 
-       gravityText.enabled = false;
+        // Disappear gravity text after 2 seconds
+        yield return new WaitForSeconds(2); 
+        gravityText.enabled = false;
     }
 
     //If the player is out of lives, it's game over
