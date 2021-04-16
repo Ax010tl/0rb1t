@@ -17,7 +17,7 @@ public class Goal : MonoBehaviour
     [SerializeField] GameObject canvas;
     [SerializeField] GameObject endMessage;
     [SerializeField] Text endText;
-
+    [SerializeField] GameObject changeMessage;
     [SerializeField] Text changeText;
     [SerializeField] GameObject bounds;
     Manager sct;
@@ -35,6 +35,7 @@ public class Goal : MonoBehaviour
         sct.displayAll();
         // Hide end message
         endMessage.SetActive(false);
+        changeMessage.SetActive(false);
         // Call Limit.cs to handle collision with planet
         limit = bounds.GetComponent<Limit>();
 
@@ -42,6 +43,18 @@ public class Goal : MonoBehaviour
         obstacles = GameObject.FindGameObjectsWithTag("Obstacle");
         obstacle = obstacles[0];
         obstacle.SetActive(false);
+
+        if(PlayerPrefs.GetInt("level") == 2){
+            changeText.text = "La gravedad ha aumentado";
+            changeMessage.SetActive(true);
+            StartCoroutine(disappear());
+        }
+
+        if(PlayerPrefs.GetInt("level") == 5){
+            changeText.text = "Cuidado con los asteroides";
+            changeMessage.SetActive(true);
+            StartCoroutine(disappear());
+        }
     }
 
     void Update() {
@@ -53,6 +66,13 @@ public class Goal : MonoBehaviour
         else{
             obstacle.SetActive(false);
         }
+
+    }
+
+    IEnumerator disappear ()
+    {
+       yield return new WaitForSeconds(1); 
+       changeMessage.SetActive(false);
     }
 
     //If the player is out of lives, it's game over
