@@ -22,7 +22,7 @@ public class TheEnd : MonoBehaviour
         message = GetComponent<SendFormData>();
         StartCoroutine(message.uploadData());
 
-        livesText.text = "Vidas: " + (PlayerPrefs.GetInt("lives") < 0 ? "0" : PlayerPrefs.GetInt("lives").ToString());
+        livesText.text = "Vidas: " + PlayerPrefs.GetInt("lives");
         levelText.text = "Completaste " + PlayerPrefs.GetInt("level") + " nivel" + (PlayerPrefs.GetInt("level") == 1 ? "" : "es");
         scoreText.text = PlayerPrefs.GetInt("score") + " puntos";
 

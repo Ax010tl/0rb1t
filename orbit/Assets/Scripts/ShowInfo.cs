@@ -14,10 +14,11 @@ public class ShowInfo : MonoBehaviour
     [SerializeField] Text score;
     [SerializeField] Image powerup;
     [SerializeField] Image ods;
-    // [SerializeField] AudioClip interested;
-    // [SerializeField] AudioClip omitted;
-    // AudioSource source;
+    [SerializeField] AudioClip interested;
+    [SerializeField] AudioClip omitted;
+    [SerializeField] AudioClip gameOver;
     [SerializeField] GameObject levelFade;
+    AudioSource source;
     LevelFader fader;
     FunFactReader ff;
 
@@ -26,6 +27,7 @@ public class ShowInfo : MonoBehaviour
     {
         ff = GameObject.FindWithTag("FunFact").GetComponent<FunFactReader>();
         fader = levelFade.GetComponent<LevelFader>();
+        source = GetComponent<AudioSource>();
         
         // Populate scene
         title.text = ff.getTitle();
@@ -37,7 +39,7 @@ public class ShowInfo : MonoBehaviour
 
     public void exitGame() 
     {
-        Debug.Log("Exit Game");
+        source.PlayOneShot(gameOver);
         fader.goToScene("End");
         // So fun fact isn't repeated
         ff.remove();
@@ -45,7 +47,7 @@ public class ShowInfo : MonoBehaviour
 
     public void omit()
     {
-        // source.PlayOneShot(omitted, 1.5f);
+        source.PlayOneShot(omitted, 1.5f);
         fader.goToScene("Level1");
 
         // So fun fact isn't repeated
@@ -54,7 +56,7 @@ public class ShowInfo : MonoBehaviour
 
     public void interesting()
     {
-        // source.PlayOneShot(interested, 1.5f);
+        source.PlayOneShot(interested, 1.5f);
         string subject = ff.getTitle(); 
         PlayerPrefs.SetInt(subject, PlayerPrefs.GetInt(subject)+1);
         fader.goToScene("Level1");

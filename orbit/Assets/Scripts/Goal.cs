@@ -26,6 +26,7 @@ public class Goal : MonoBehaviour
     Manager sct;
     Limit limit;
     FunFactReader ff;
+    AudioManager sfx;
 
     GameObject[] obstacles;
     GameObject obstacle; 
@@ -44,6 +45,8 @@ public class Goal : MonoBehaviour
         limit = bounds.GetComponent<Limit>();
         // Call LevelFader.cs to fade in and out of level
         fader = levelFade.GetComponent<LevelFader>();
+        // Call AudioManager.cs to play sounds
+        sfx = canvas.GetComponent<AudioManager>();
 
         // An obstacle will be activated once the player reaches level 5
         obstacles = GameObject.FindGameObjectsWithTag("Obstacle");
@@ -108,8 +111,12 @@ public class Goal : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collider){
         // Add points to score if rocket collides with a powerup
         if(collider.tag == "PowerUp"){
-            sct.changeScore(1);
-            ff.scoreDelta++;
+            // Once number of revolutions has been reached, it won't be counted if player gets powerup
+            if(numberOfRevolutions >= minRevolutions) {return;}
+            else {
+                sct.changeScore(1);
+                ff.scoreDelta++;
+            }
         }
 
         // We need to add points if it manages the minimum complete orbits
@@ -118,9 +125,6 @@ public class Goal : MonoBehaviour
             if(numberOfRevolutions == minRevolutions){
                 // Change levels and scores
                 sct.changeScore(1);
-                // Show achievement message
-                endText.text = "¡Nivel completado!";
-                endMessage.SetActive(true);
                 // Wait for 5 seconds before showing next scene
                 StartCoroutine(SceneCoroutine());
             }
@@ -131,6 +135,7 @@ public class Goal : MonoBehaviour
             // Once number of revolutions has been reached, it won't be counted if player loses lives
             if(numberOfRevolutions >= minRevolutions) {return;}
             else {
+                sfx.planetCollisionSound();
                 limit.manageCollision();
             }
         }
@@ -148,8 +153,13 @@ public class Goal : MonoBehaviour
     // Wait a few seconds before new scene and level
     IEnumerator SceneCoroutine()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(1.5f);
         sct.changeLevel(1);
+        // Show achievement message
+        endText.text = "¡Nivel completado!";
+        endMessage.SetActive(true);
+        
+        yield return new WaitForSeconds(1);
         fader.goToScene( getFunFactScene() );
     }
 

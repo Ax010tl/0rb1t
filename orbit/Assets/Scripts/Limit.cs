@@ -18,38 +18,44 @@ public class Limit : MonoBehaviour
     LevelFader fader;
     Manager sct;
     GameObject rocket;
+    AudioManager sfx;
+
     // Start is called before the first frame update
     void Start()
     {
         sct = canvas.GetComponent<Manager>();
         rocket = GameObject.FindWithTag("Player");
         fader = levelFade.GetComponent<LevelFader>();
+        sfx = canvas.GetComponent<AudioManager>();
     }
 
     void OnTriggerExit2D(Collider2D col) {
         if(col.tag == "Player")
         {
+            sfx.limitReachedSound();
             manageCollision();
         }
     }
 
     public void manageCollision() {
-        // Subtract life
-        sct.changeLives(-1);
-
         // Return rocket to start position
         rocket.transform.position = new Vector3(-0.03000032f, -3.17f, 0);
         rocket.transform.rotation = Quaternion.Euler(0, 0, -42.381f);
         rocket.GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
         rocket.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
 
-        if (PlayerPrefs.GetInt("lives") > 0) {
+        if (PlayerPrefs.GetInt("lives") > 1) {
+            // Subtract life
+            sct.changeLives(-1);
+
             // Show message to try again
             endText.text = "Intenta de nuevo :(";
             endMessage.SetActive(true);
             StartCoroutine(delayRestart());
         }
         else {
+            PlayerPrefs.SetInt("lives", 0);
+            sfx.gameOverSound();
             // Show end of game message
             endText.text = "¡Ya no tienes vidas!";
             endMessage.SetActive(true);
