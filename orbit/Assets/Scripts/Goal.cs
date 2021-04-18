@@ -7,7 +7,6 @@ Lourdes Badillo & Eduardo Villalpando
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class Goal : MonoBehaviour
 {
@@ -20,10 +19,13 @@ public class Goal : MonoBehaviour
     [SerializeField] GameObject changeMessage;
     [SerializeField] Text changeText;
     [SerializeField] Text gravityText;
-    int G; 
     [SerializeField] GameObject bounds;
+    [SerializeField] GameObject levelFade;
+    int G; 
+    LevelFader fader;
     Manager sct;
     Limit limit;
+    FunFactReader ff;
 
     GameObject[] obstacles;
     GameObject obstacle; 
@@ -40,6 +42,8 @@ public class Goal : MonoBehaviour
         changeMessage.SetActive(false);
         // Call Limit.cs to handle collision with planet
         limit = bounds.GetComponent<Limit>();
+        // Call LevelFader.cs to fade in and out of level
+        fader = levelFade.GetComponent<LevelFader>();
 
         // An obstacle will be activated once the player reaches level 5
         obstacles = GameObject.FindGameObjectsWithTag("Obstacle");
@@ -69,6 +73,9 @@ public class Goal : MonoBehaviour
         // Text with the planet's gravity, which disappears after 2 seconds
         gravityText.text = "Gravedad: " + G.ToString(); 
         StartCoroutine(disappearGravity());
+
+        ff = GameObject.FindWithTag("FunFact").GetComponent<FunFactReader>();
+        ff.scoreDelta = 0;
     }
 
     void Update() {
@@ -98,21 +105,11 @@ public class Goal : MonoBehaviour
         gravityText.enabled = false;
     }
 
-    //If the player is out of lives, it's game over
-    private void HandleLives ()
-    {
-        if(PlayerPrefs.GetInt("lives") <= 0){
-            // Show end of game message
-            endText.text = "¡Ya no tienes vidas!";
-            endMessage.SetActive(true);
-            StartCoroutine(limit.delayEnd());
-        }
-    }
-
     void OnTriggerEnter2D(Collider2D collider){
         // Add points to score if rocket collides with a powerup
         if(collider.tag == "PowerUp"){
             sct.changeScore(1);
+            ff.scoreDelta++;
         }
 
         // We need to add points if it manages the minimum complete orbits
@@ -153,28 +150,18 @@ public class Goal : MonoBehaviour
     {
         yield return new WaitForSeconds(5);
         sct.changeLevel(1);
-        SceneManager.LoadScene( getFunFactScene() );
+        fader.goToScene( getFunFactScene() );
     }
 
-    // Go to fun fact depending on power up sprite
+    // Go to fun fact depending on power up sprite and facts that have already been displayed
     string getFunFactScene(){
-        GameObject powerUp = GameObject.FindWithTag("PowerUp");
-        string powerUpType = powerUp.GetComponent<SpriteRenderer>().sprite.name;
-        switch(powerUpType){
-            case "math":
-                return "FFMath1";
-            case "bio":
-                return "FFBio1";
-            case "chem":
-                return "FFChem1";
-            case "phys":
-                return "FFPhys1";
-            case "eng":
-                return "FFEng1";
-            case "tech":
-                return "FFTech1";
-            default:
-                return "End";
+        string powerUpType = GameObject.FindWithTag("PowerUp").GetComponent<SpriteRenderer>().sprite.name;
+
+        if(ff.factsExist(powerUpType)) {
+            return "FunFact";
+        }
+        else {
+            return "Level1";
         }
     }
 

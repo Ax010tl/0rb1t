@@ -36,14 +36,14 @@ public class Manager : MonoBehaviour
         else{
             score += num;
             PlayerPrefs.SetInt("score", score);
-            if (score%10 == 0) {
-                changeLives(1);
-            }
             
             if(num < 0) {
                 StartCoroutine(fade(scoreAlert, "" + num));
             }
             else {
+                if (score%10 == 0) {
+                    changeLives(1);
+                }
                 StartCoroutine(fade(scoreAlert, "+" + num));
             }
         }
@@ -106,7 +106,7 @@ public class Manager : MonoBehaviour
         while (textBox.color.a > 0.0f)
         {
             textBox.color = new Color(textBox.color.r, textBox.color.g, textBox.color.b, textBox.color.a - Time.deltaTime);
-            pos.anchoredPosition = new Vector3(pos.anchoredPosition.x, pos.anchoredPosition.y + 0.01f);
+            pos.anchoredPosition = new Vector3(pos.anchoredPosition.x, pos.anchoredPosition.y + 0.1f);
             yield return null;
         }
     }
