@@ -6,7 +6,6 @@ Valeria Pineda
 */
 
 using System.Collections;
-using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +14,8 @@ public class Limit : MonoBehaviour
     [SerializeField] GameObject canvas;
     [SerializeField] GameObject endMessage;
     [SerializeField] Text endText;
+    [SerializeField] GameObject levelFade;
+    LevelFader fader;
     Manager sct;
     GameObject rocket;
     AudioManager sfx;
@@ -24,6 +25,7 @@ public class Limit : MonoBehaviour
     {
         sct = canvas.GetComponent<Manager>();
         rocket = GameObject.FindWithTag("Player");
+        fader = levelFade.GetComponent<LevelFader>();
         sfx = canvas.GetComponent<AudioManager>();
     }
 
@@ -72,6 +74,6 @@ public class Limit : MonoBehaviour
 
     public IEnumerator delayEnd() {
         yield return new WaitForSeconds(4.0f);
-        SceneManager.LoadScene("End");
+        fader.goToScene("End");
     }
 }

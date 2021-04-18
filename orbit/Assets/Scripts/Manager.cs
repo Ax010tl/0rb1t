@@ -34,16 +34,13 @@ public class Manager : MonoBehaviour
     }
 
     public void changeScore(int num) {
-        //So we dont end up with negative scores
+        // So we dont end up with negative scores
         if(score == 0 && num < 0){
             return;
         }
         else{
             score += num;
             PlayerPrefs.SetInt("score", score);
-            if (score%10 == 0) {
-                changeLives(1);
-            }
             
             // Subtract score
             if(num < 0) {
@@ -52,6 +49,9 @@ public class Manager : MonoBehaviour
             }
             // Add score
             else {
+                if (score%10 == 0) {
+                    changeLives(1);
+                }
                 sfx.scorePlusSound();
                 StartCoroutine(fade(scoreAlert, "+" + num));
             }
@@ -121,7 +121,7 @@ public class Manager : MonoBehaviour
         while (textBox.color.a > 0.0f)
         {
             textBox.color = new Color(textBox.color.r, textBox.color.g, textBox.color.b, textBox.color.a - Time.deltaTime);
-            pos.anchoredPosition = new Vector3(pos.anchoredPosition.x, pos.anchoredPosition.y + 0.01f);
+            pos.anchoredPosition = new Vector3(pos.anchoredPosition.x, pos.anchoredPosition.y + 0.1f);
             yield return null;
         }
     }
