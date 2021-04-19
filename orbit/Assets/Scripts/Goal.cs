@@ -26,7 +26,6 @@ public class Goal : MonoBehaviour
     Manager sct;
     Limit limit;
     FunFactReader ff;
-    AudioManager sfx;
 
     GameObject[] obstacles;
     GameObject obstacle; 
@@ -45,8 +44,6 @@ public class Goal : MonoBehaviour
         limit = bounds.GetComponent<Limit>();
         // Call LevelFader.cs to fade in and out of level
         fader = levelFade.GetComponent<LevelFader>();
-        // Call AudioManager.cs to play sounds
-        sfx = canvas.GetComponent<AudioManager>();
 
         // An obstacle will be activated once the player reaches level 5
         obstacles = GameObject.FindGameObjectsWithTag("Obstacle");
@@ -135,7 +132,6 @@ public class Goal : MonoBehaviour
             // Once number of revolutions has been reached, it won't be counted if player loses lives
             if(numberOfRevolutions >= minRevolutions) {return;}
             else {
-                sfx.planetCollisionSound();
                 limit.manageCollision();
             }
         }

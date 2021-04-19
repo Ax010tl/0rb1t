@@ -2178,8 +2178,7 @@ MonoBehaviour:
   scoreTake: {fileID: 8300000, guid: 6bee4915068b0431aa11c7151ff5ddc4, type: 3}
   levelAdd: {fileID: 8300000, guid: 2971734f1d2e34fe4b528d7f0a84f5e1, type: 3}
   livesAdd: {fileID: 8300000, guid: 896a8fff9ec284d67a1bd4121caf9d9c, type: 3}
-  planetCollision: {fileID: 8300000, guid: 35f90b72b8fe7469d9dbc3a14c9db2fb, type: 3}
-  limitReached: {fileID: 8300000, guid: af2192727cb1647e09b9471282fb6e93, type: 3}
+  livesTake: {fileID: 8300000, guid: 5555f7e449ce74b9c98f2748fed6b2ee, type: 3}
   gameOver: {fileID: 8300000, guid: 2f3af66b6d33e4bb5afa6e5373e9f56b, type: 3}
 --- !u!82 &2039318992
 AudioSource:
