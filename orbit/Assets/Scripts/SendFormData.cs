@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 public class SendFormData : MonoBehaviour
 {
     // The route for the api that inserts data.
-    string apiURL = "http://localhost:5000/api/gamedata";
+    string apiURL = "http://stem-orbit.herokuapp.com/api/gamedata";
 
     private void Start() 
     {
