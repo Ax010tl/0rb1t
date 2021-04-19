@@ -63,6 +63,9 @@ public class FunFactReader : MonoBehaviour
         Sprite res = Array.Find(powerups, s => s.name.Equals(facts[factWanted][1]));
         return res;
     }
+    public string getPowerupName() {
+        return facts[factWanted][1];
+    }
     public Sprite getSDG() {
         // Find sprite in the array that has the same name as the one on the text file
         Sprite res = Array.Find(sdg, s => s.name.Equals(facts[factWanted][2]));

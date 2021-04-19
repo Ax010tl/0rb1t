@@ -10,15 +10,9 @@ using UnityEngine.SceneManagement;
 
 public class LevelFader : MonoBehaviour
 {
-    Animator animator;
+    public Animator animator;
     string levelToLoad;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        animator = GetComponent<Animator>();
-    }
-    
     public void goToScene(string level) {
         fadeToLevel();
         levelToLoad = level;

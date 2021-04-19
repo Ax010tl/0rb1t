@@ -57,7 +57,7 @@ public class ShowInfo : MonoBehaviour
     public void interesting()
     {
         source.PlayOneShot(interested, 1.5f);
-        string subject = ff.getTitle(); 
+        string subject = ff.getPowerupName(); 
         PlayerPrefs.SetInt(subject, PlayerPrefs.GetInt(subject)+1);
         fader.goToScene("Level1");
 
