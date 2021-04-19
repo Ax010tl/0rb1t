@@ -69,6 +69,7 @@ public class Manager : MonoBehaviour
 
         // Subtract lives
         if(num < 0) {
+            sfx.livesMinusSound();
             StartCoroutine(fade(livesAlert, num.ToString()));
         }
         // Add lives

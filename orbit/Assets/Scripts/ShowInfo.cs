@@ -47,7 +47,7 @@ public class ShowInfo : MonoBehaviour
 
     public void omit()
     {
-        source.PlayOneShot(omitted, 1.5f);
+        source.PlayOneShot(omitted, 3.5f);
         fader.goToScene("Level1");
 
         // So fun fact isn't repeated
@@ -56,7 +56,7 @@ public class ShowInfo : MonoBehaviour
 
     public void interesting()
     {
-        source.PlayOneShot(interested, 1.5f);
+        source.PlayOneShot(interested, 2.5f);
         string subject = ff.getPowerupName(); 
         PlayerPrefs.SetInt(subject, PlayerPrefs.GetInt(subject)+1);
         fader.goToScene("Level1");

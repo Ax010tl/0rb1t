@@ -14,8 +14,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioClip scoreTake;
     [SerializeField] AudioClip levelAdd;
     [SerializeField] AudioClip livesAdd;
-    [SerializeField] AudioClip planetCollision;
-    [SerializeField] AudioClip limitReached;
+    [SerializeField] AudioClip livesTake;
     [SerializeField] AudioClip gameOver;
     // this one will play all sounds
     AudioSource source;
@@ -39,11 +38,8 @@ public class AudioManager : MonoBehaviour
     public void livesPlusSound() {
         source.PlayOneShot(livesAdd);
     }
-    public void planetCollisionSound() {
-        source.PlayOneShot(planetCollision, 1.5f);
-    }
-    public void limitReachedSound() {
-        source.PlayOneShot(limitReached, 1.5f);
+    public void livesMinusSound() {
+        source.PlayOneShot(livesTake);
     }
     public void gameOverSound() {
         source.PlayOneShot(gameOver, 1.5f);
