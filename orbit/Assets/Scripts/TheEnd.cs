@@ -22,8 +22,10 @@ public class TheEnd : MonoBehaviour
         message = GetComponent<SendFormData>();
         StartCoroutine(message.uploadData());
 
+        int level = PlayerPrefs.GetInt("level")-1;
+
         livesText.text = "Vidas: " + PlayerPrefs.GetInt("lives");
-        levelText.text = "Completaste " + PlayerPrefs.GetInt("level") + " nivel" + (PlayerPrefs.GetInt("level") == 1 ? "" : "es");
+        levelText.text = "Completaste " + level + " nivel" + (level == 1 ? "" : "es");
         scoreText.text = PlayerPrefs.GetInt("score") + " puntos";
 
         fader = fade.GetComponent<LevelFader>();

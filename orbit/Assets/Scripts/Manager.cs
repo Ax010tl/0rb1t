@@ -49,7 +49,7 @@ public class Manager : MonoBehaviour
             }
             // Add score
             else {
-                if (score%10 == 0) {
+                if (score%10 == 0 && lives < 10) {
                     changeLives(1);
                 }
                 sfx.scorePlusSound();
@@ -59,13 +59,8 @@ public class Manager : MonoBehaviour
     }
 
     public void changeLives(int num) {
-        
-
-        // Player can't have more than 10 lives
-        if (lives+num <= 10) {
-            lives += num;
-            PlayerPrefs.SetInt("lives", lives);
-        }
+        lives += num;
+        PlayerPrefs.SetInt("lives", lives);
 
         // Subtract lives
         if(num < 0) {

@@ -20,7 +20,7 @@ public class SaveRegister : MonoBehaviour
     [SerializeField] Text genderParent;
     [SerializeField] Text schoolLevelParent;
     [SerializeField] Button ButtonNext;
-    [SerializeField] Image levelFade;
+    [SerializeField] GameObject levelFade;
     LevelFader fader;
     int currScreen;
     int yPos;

@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class RandomSprites : MonoBehaviour
 {
-    [SerializeField] Sprite[] list;
+    public Sprite[] list;
 
     // Start is called before the first frame update
     void Start()
