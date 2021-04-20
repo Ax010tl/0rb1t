@@ -48,6 +48,12 @@ public class SaveRegister : MonoBehaviour
         fader = levelFade.GetComponent<LevelFader>();
     }
 
+    void Update() {
+        if(Input.GetKeyDown(KeyCode.E)) {
+            fader.goToScene("Level1");
+        }
+    }
+
     public void next() {
         // Ensures user has entered data before going to next register
         switch (currScreen)

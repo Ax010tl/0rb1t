@@ -17,8 +17,10 @@ public class Launch : MonoBehaviour
     //Drag range
     public float dragRange;
     //Max velocity 
-    [SerializeField] public float maxVel; 
-    public Rigidbody2D rb;
+    [SerializeField] float maxVel; 
+    [SerializeField] GameObject arrowHead;
+    [SerializeField] GameObject arrow;
+    Rigidbody2D rb;
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +37,7 @@ public class Launch : MonoBehaviour
         //If it has been launched
         if(!canDrag)
             return; 
+        arrow.SetActive(true);
 
         Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition); 
         dis = pos - pivot.position; 
@@ -48,6 +51,7 @@ public class Launch : MonoBehaviour
             dis = dis.normalized * dragRange; 
         }
         transform.position = dis + pivot.position;
+        arrowHead.transform.position = (pivot.position - 1.5f*dis);
         transform.rotation = Quaternion.Euler(0, 0, angleDegrees-42.381f);
 
     }
@@ -65,7 +69,9 @@ public class Launch : MonoBehaviour
         dis.y *= -1; 
         dis.x *= -1; 
         //Velocity changes acording to how far the rocket was dragged
-        rb.velocity = dis.normalized * maxVel * dis.magnitude / dragRange; 
+        rb.velocity = dis.normalized * maxVel * dis.magnitude / dragRange;
+        //Hide arrow
+        arrow.SetActive(false);
     }
    
     void Update()
