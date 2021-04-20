@@ -15,6 +15,7 @@ public class Limit : MonoBehaviour
     [SerializeField] GameObject endMessage;
     [SerializeField] Text endText;
     [SerializeField] GameObject levelFade;
+    [SerializeField] Text gravity;
     LevelFader fader;
     Manager sct;
     GameObject rocket;
@@ -65,14 +66,25 @@ public class Limit : MonoBehaviour
     IEnumerator delayRestart() {
         yield return new WaitForSeconds(1.8f);
         endMessage.SetActive(false);
+        gravity.enabled = true;
 
         // Be able to throw it once more
         rocket.GetComponent<Launch>().canDrag = true;
         rocket.GetComponent<Goal>().numberOfRevolutions = 0;
+
+        yield return new WaitForSeconds(5);
+        gravity.enabled = true;
     }
 
     public IEnumerator delayEnd() {
         yield return new WaitForSeconds(4.0f);
         fader.goToScene("End");
+    }
+
+    public void exitGame() 
+    {
+        sfx.gameOverSound();
+        fader.goToScene("End");
+        // So fun fact isn't repeated
     }
 }

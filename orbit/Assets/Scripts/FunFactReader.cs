@@ -12,6 +12,8 @@ using UnityEngine;
 public class FunFactReader : MonoBehaviour
 {
     public int scoreDelta;
+    public bool tutorial;
+    public int factsViewed;
     [SerializeField] Sprite[] sdg;
     [SerializeField] Sprite[] powerups;
     List<string[]> facts;
@@ -37,10 +39,15 @@ public class FunFactReader : MonoBehaviour
 
         // So the game remembers which facts have been displayed
         DontDestroyOnLoad(this.gameObject);
+
+        // So tutorial is shown the first time player is on Level 1
+        tutorial = true;
+        factsViewed = 0;
     }
 
     // Check if there are any fun facts left for that subject
     public bool factsExist(string subject) {
+        tutorial = false;
         // Check if any facts remain
         if(facts.Count > 0) {
             for(int i = 0; i < facts.Count; i++) {

@@ -1,4 +1,10 @@
-﻿using System.Collections;
+﻿/*
+Send Player Prefs as HTML form. Adapted from example in class
+written by Octavio Navarro and Gilberto Echeverría.
+13/04/2021
+*/
+
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 

@@ -6,13 +6,16 @@ Lalo Villalpando
 */
 
 using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Gravity : MonoBehaviour 
 {
     // Public properties
     [SerializeField] GameObject planet;
     [SerializeField] GameObject background;
+    [SerializeField] Text gravityText;
     public Camera mainCamera;
     [SerializeField] double G; // Start with 6.67*Math.Pow(10,-11)
     // Rigid bodies
@@ -60,10 +63,15 @@ public class Gravity : MonoBehaviour
         massRocket = bodyRocket.mass;        
         massPlanet = bodyPlanet.mass;
 
-        G = PlayerPrefs.GetInt("level") + 7;
-        if(G>30){
-            G = 30; 
+        // How we manage Gravity for each level
+        G = 31 - PlayerPrefs.GetInt("level");
+        if(G < 18) {
+            G = UnityEngine.Random.Range(8,30); 
         }
+
+        // Text with the planet's gravity, which disappears after 2 seconds
+        gravityText.text = "Gravedad: " + G.ToString(); 
+        StartCoroutine(disappearGravity());
     }
 
     void Update()
@@ -79,5 +87,12 @@ public class Gravity : MonoBehaviour
 
         bodyRocket.AddForce(force);
         updateTrayectoryAngle();
+    }
+
+    IEnumerator disappearGravity ()
+    {
+        // Disappear gravity text after 10 seconds
+        yield return new WaitForSeconds(10); 
+        gravityText.enabled = false;
     }
 }

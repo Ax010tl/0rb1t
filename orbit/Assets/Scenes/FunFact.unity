@@ -813,7 +813,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2c1f874cf34984a91bbd849bc5ec1280, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 24359e05bd7a84c8aae27bcfccf139ca, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1911,6 +1911,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Fader
+      objectReference: {fileID: 0}
+    - target: {fileID: 3891222721080118286, guid: ab65c9faed9604e68a72a7fdbc60aa2a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab65c9faed9604e68a72a7fdbc60aa2a, type: 3}
