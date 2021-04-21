@@ -20,8 +20,8 @@ public class SaveRegister : MonoBehaviour
     [SerializeField] Text genderParent;
     [SerializeField] Text schoolLevelParent;
     [SerializeField] Button ButtonNext;
-    [SerializeField] GameObject levelFade;
-    LevelFader fader;
+    [SerializeField] LevelFader fader;
+    [SerializeField] FunFactReader ff;
     int currScreen;
     int yPos;
 
@@ -43,15 +43,12 @@ public class SaveRegister : MonoBehaviour
         PlayerPrefs.SetInt("physics", 0);
         PlayerPrefs.SetInt("tech", 0);
 
+        // So tutorial is only shown on the player's first time in level 1
+        PlayerPrefs.SetInt("tutorial", 1);
+
         yPos = 123;
 
-        fader = levelFade.GetComponent<LevelFader>();
-    }
-
-    void Update() {
-        if(Input.GetKeyDown(KeyCode.E)) {
-            fader.goToScene("Level1");
-        }
+        ff.randomize();
     }
 
     public void next() {

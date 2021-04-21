@@ -17,16 +17,13 @@ public class ShowInfo : MonoBehaviour
     [SerializeField] AudioClip interested;
     [SerializeField] AudioClip omitted;
     [SerializeField] AudioClip gameOver;
-    [SerializeField] GameObject levelFade;
+    [SerializeField] LevelFader fader;
+    [SerializeField] FunFactReader ff;
     AudioSource source;
-    LevelFader fader;
-    FunFactReader ff;
 
     // Start is called before the first frame update
     void Start()
     {
-        ff = GameObject.FindWithTag("FunFact").GetComponent<FunFactReader>();
-        fader = levelFade.GetComponent<LevelFader>();
         source = GetComponent<AudioSource>();
         
         // Populate scene
@@ -41,17 +38,12 @@ public class ShowInfo : MonoBehaviour
     {
         source.PlayOneShot(gameOver);
         fader.goToScene("End");
-        // So fun fact isn't repeated
-        ff.remove();
     }
 
     public void omit()
     {
         source.PlayOneShot(omitted, 3.5f);
         fader.goToScene("Level1");
-
-        // So fun fact isn't repeated
-        ff.remove();
     }
 
     public void interesting()
@@ -60,8 +52,5 @@ public class ShowInfo : MonoBehaviour
         string subject = ff.getPowerupName(); 
         PlayerPrefs.SetInt(subject, PlayerPrefs.GetInt(subject)+1);
         fader.goToScene("Level1");
-
-        // So fun fact isn't repeated
-        ff.remove();
     }
 }

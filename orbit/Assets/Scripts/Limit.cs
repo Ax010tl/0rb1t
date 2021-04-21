@@ -51,6 +51,7 @@ public class Limit : MonoBehaviour
             // Show message to try again
             endText.text = "Intenta de nuevo :(";
             endMessage.SetActive(true);
+            gravity.enabled = true;
             StartCoroutine(delayRestart());
         }
         else {
@@ -66,14 +67,13 @@ public class Limit : MonoBehaviour
     IEnumerator delayRestart() {
         yield return new WaitForSeconds(1.8f);
         endMessage.SetActive(false);
-        gravity.enabled = true;
 
         // Be able to throw it once more
         rocket.GetComponent<Launch>().canDrag = true;
         rocket.GetComponent<Goal>().numberOfRevolutions = 0;
 
-        yield return new WaitForSeconds(5);
-        gravity.enabled = true;
+        yield return new WaitForSeconds(15);
+        gravity.enabled = false;
     }
 
     public IEnumerator delayEnd() {

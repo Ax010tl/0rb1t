@@ -19,11 +19,10 @@ public class Goal : MonoBehaviour
     [SerializeField] GameObject changeMessage;
     [SerializeField] Text changeText;
     [SerializeField] GameObject bounds;
-    [SerializeField] GameObject levelFade;
-    LevelFader fader;
+    [SerializeField] LevelFader fader;
+    [SerializeField] FunFactReader ff;
     Manager sct;
     Limit limit;
-    FunFactReader ff;
 
     GameObject[] obstacles;
     GameObject obstacle; 
@@ -40,9 +39,6 @@ public class Goal : MonoBehaviour
         changeMessage.SetActive(false);
         // Call Limit.cs to handle collision with planet
         limit = bounds.GetComponent<Limit>();
-        // Call LevelFader.cs to fade in and out of level
-        fader = levelFade.GetComponent<LevelFader>();
-        levelFade.SetActive(true);
 
         // An obstacle will be activated once the player reaches level 5
         obstacles = GameObject.FindGameObjectsWithTag("Obstacle");
@@ -63,7 +59,6 @@ public class Goal : MonoBehaviour
             StartCoroutine(disappear());
         }
 
-        ff = GameObject.FindWithTag("FunFact").GetComponent<FunFactReader>();
         ff.scoreDelta = 0;
     }
 
@@ -143,9 +138,7 @@ public class Goal : MonoBehaviour
 
     // Go to fun fact depending on power up sprite and facts that have already been displayed
     string getFunFactScene(){
-        string powerUpType = GameObject.FindWithTag("PowerUp").GetComponent<SpriteRenderer>().sprite.name;
-
-        if(ff.factsExist(powerUpType)) {
+        if(PlayerPrefs.GetInt("level") < 14) {
             return "FunFact";
         }
         else {

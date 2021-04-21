@@ -24,7 +24,7 @@ public class Tutorial : MonoBehaviour
     void Start()
     {
         // Only shows tutorial first time player is in level 1
-        if(GameObject.FindWithTag("FunFact").GetComponent<FunFactReader>().tutorial) {
+        if(PlayerPrefs.GetInt("tutorial") == 1) {
             drag.SetActive(true);
             orbit.SetActive(false);
             powerup.SetActive(false);
@@ -53,6 +53,8 @@ public class Tutorial : MonoBehaviour
         orbit.SetActive(false);
         powerup.SetActive(true);
 
+        // So tutorial isn't repeated
+        PlayerPrefs.SetInt("tutorial", 0);
         yield return new WaitForSeconds(5.0f);
         powerup.SetActive(false);
     }
