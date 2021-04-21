@@ -11,15 +11,10 @@ public class WelcomeScreen : MonoBehaviour
 {
     [SerializeField] GameObject rocket;
     [SerializeField] GameObject planet;
-    [SerializeField] GameObject levelFade;
+    [SerializeField] LevelFader fader;
     [SerializeField] GameObject music;
-    LevelFader fader;
     Vector3 dis;
     float t = 0;
-
-    private void Start() {
-        fader = levelFade.GetComponent<LevelFader>();
-    }
 
     // Update is called once per frame
     void Update()
@@ -54,6 +49,10 @@ public class WelcomeScreen : MonoBehaviour
 
     void Awake()
     {
+        GameObject[] objs = GameObject.FindGameObjectsWithTag("Music");
+        if(objs.Length > 1) {
+            Destroy(objs[1]);
+        }
         DontDestroyOnLoad(music);
     }
 }

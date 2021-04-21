@@ -8,10 +8,11 @@ Valeria Pineda
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Manager : MonoBehaviour
 {
-    [SerializeField] Text livesBox;
+    [SerializeField] TextMeshProUGUI livesBox;
     [SerializeField] Text scoreBox;
     [SerializeField] Text levelBox;
     [SerializeField] string livesText;

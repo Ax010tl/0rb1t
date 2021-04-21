@@ -1,0 +1,12 @@
+QUÍMICA;chemistry;S-WEB-Goal-02;¡ Muy bien !;Estudiar coloides en el espacio nos ayuda a tener mejores productos en la Tierra, como detergente o comida empaquetada que dura más tiempo.
+BIOLOGÍA;biology;S-WEB-Goal-03;¡ Lo lograste !;Imprimir órganos con impresoras 3D en el espacio hace más fácil replicar estructuras pequeñas y complicadas.
+MATEMÁTICAS;math;S-WEB-Goal-09;¡ Genial !;La estadística da resultados muy precisos, así podemos entender mejor la formación de planetas y los hoyos negros.
+QUÍMICA;chemistry;S-WEB-Goal-06;¡ Muy bien !;Los sistemas de purificación de agua usados en misiones espaciales han sido adaptados para traer agua limpia a áreas remotas de todo el mundo.
+MATEMÁTICAS;math;S-WEB-Goal-09;¡ Genial !;Los puntos de Lagrange nos ayudan a trazar la mejor ruta para viajar por el espacio, con ellos se construye la Red de Transporte Interplanetario.
+BIOLOGÍA;biology;S-WEB-Goal-03;¡ Lo lograste !;Hoy en día hay tratamientos para la osteoporosis gracias a la investigación en el espacio.
+FÍSICA;physics;S-WEB-Goal-09;¡ Excelente !;Estudiar el quinto estado de la materia en el espacio abre nuevas posibilidades para la mecánica y la computación cuántica.
+INGENIERÍA;engineering;S-WEB-Goal-10;¡ Soy tu fan !;Los CubeSats son satélites del tamaño de una taza, usados para proyectos como Wi-fi global y de estudio del cambio climático.
+INGENIERÍA;engineering;S-WEB-Goal-09;¡ Soy tu fan !;Los Mars Rovers tienen pequeños laboratorios dentro de ellos, con los cuales estudian el suelo de Marte, buscando materia orgánica.
+TECNOLOGÍA;tech;S-WEB-Goal-09;¡ Excelso !;En misiones donde no hay quien haga reparaciones (como Voyager), se usan computadoras especiales para identificar y solucionar problemas.
+FÍSICA;physics;S-WEB-Goal-13;¡ Excelente !;En el espacio es más fácil crear llamas frías, las cuales contaminan menos el ambiente. Esto sirve para hacer combustibles más limpios. 
+TECNOLOGÍA;tech;S-WEB-Goal-09;¡ Excelso !;Científicas como Katie Bouman diseñan algoritmos para generar imágenes, usando las diferentes frecuencias de luz con las que se observa el universo.

@@ -91,8 +91,8 @@ public class Gravity : MonoBehaviour
 
     IEnumerator disappearGravity ()
     {
-        // Disappear gravity text after 10 seconds
-        yield return new WaitForSeconds(10); 
+        // Disappear gravity text after 15 seconds
+        yield return new WaitForSeconds(15); 
         gravityText.enabled = false;
     }
 }

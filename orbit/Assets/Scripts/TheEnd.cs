@@ -14,8 +14,8 @@ public class TheEnd : MonoBehaviour
     [SerializeField] Text scoreText;
     [SerializeField] Text levelText;
     [SerializeField] Text highScoreText;
-    [SerializeField] GameObject fade;
-    LevelFader fader;
+    [SerializeField] LevelFader fader;
+    [SerializeField] FunFactReader ff;
     SendFormData message;
 
     private void Start() {
@@ -27,8 +27,6 @@ public class TheEnd : MonoBehaviour
         livesText.text = "Vidas: " + PlayerPrefs.GetInt("lives");
         levelText.text = "Completaste " + level + " nivel" + (level == 1 ? "" : "es");
         scoreText.text = PlayerPrefs.GetInt("score") + " puntos";
-
-        fader = fade.GetComponent<LevelFader>();
     }
 
     public void restartGame() {

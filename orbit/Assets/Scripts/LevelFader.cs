@@ -10,6 +10,9 @@ using UnityEngine.SceneManagement;
 
 public class LevelFader : MonoBehaviour
 {
+    private void Start() {
+        enabled = true;
+    }
     public Animator animator;
     string levelToLoad;
 

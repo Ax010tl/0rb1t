@@ -6,27 +6,37 @@ Valeria Pineda
 */
 
 using System;
+using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class FunFactReader : MonoBehaviour
 {
-    public int scoreDelta;
-    public bool tutorial;
-    public int factsViewed;
+    public int scoreDelta {
+        get { return PlayerPrefs.GetInt("scoreDelta"); }
+        set { PlayerPrefs.SetInt("scoreDelta", value); }
+    }
     [SerializeField] Sprite[] sdg;
     [SerializeField] Sprite[] powerups;
+    string[] lines;
     List<string[]> facts;
-    int factWanted;
+    public int factWanted;
 
-    // Start is called before the first frame update
-    void Start()
+    // So list has all data loaded whenever called
+    private void Awake() {
+        read();
+    }
+
+    public void read()
     {
-        string[] lines, split;
+        factWanted = PlayerPrefs.GetInt("level") - 2;
+        string[] split;
         facts = new List<string[]>();
 
-        // Save data from text file to list
-        lines = System.IO.File.ReadAllLines("Assets/Text/funfacta.txt");
+        // Save data from text file
+        string texty = Resources.Load<TextAsset>("funfacta").text;
+        lines = texty.Split('\n');
+        // lines = System.IO.File.ReadAllLines("Assets/Text/funfacta.txt");
         foreach (string line in lines)
         {
             // Divide by subject, sprite name, SDO, message and fun fact
@@ -36,29 +46,6 @@ public class FunFactReader : MonoBehaviour
 
         // Remove unused memory spaces :3
         facts.TrimExcess();
-
-        // So the game remembers which facts have been displayed
-        DontDestroyOnLoad(this.gameObject);
-
-        // So tutorial is shown the first time player is on Level 1
-        tutorial = true;
-        factsViewed = 0;
-    }
-
-    // Check if there are any fun facts left for that subject
-    public bool factsExist(string subject) {
-        tutorial = false;
-        // Check if any facts remain
-        if(facts.Count > 0) {
-            for(int i = 0; i < facts.Count; i++) {
-                // Check subject
-                if(facts[i][1] == subject) {
-                    factWanted = i;
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     // Getters
@@ -68,6 +55,12 @@ public class FunFactReader : MonoBehaviour
     public Sprite getPowerup() {
         // Find sprite in the array that has the same name as the one on the text file
         Sprite res = Array.Find(powerups, s => s.name.Equals(facts[factWanted][1]));
+        return res;
+    }
+    public Sprite getLevelPowerup() {
+        // Find sprite in the array that has the same name as the one on the text file
+        int index = factWanted+1;
+        Sprite res = Array.Find(powerups, s => s.name.Equals(facts[index][1]));
         return res;
     }
     public string getPowerupName() {
@@ -88,9 +81,5 @@ public class FunFactReader : MonoBehaviour
     }
     public string getFact() {
         return facts[factWanted][4];
-    }
-
-    public void remove() {
-        facts.RemoveAt(factWanted);
     }
 }
