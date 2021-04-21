@@ -82,29 +82,4 @@ public class FunFactReader : MonoBehaviour
     public string getFact() {
         return facts[factWanted][4];
     }
-
-    public void randomize() {
-        System.Random rng = new System.Random();
-		
-		// Fisher-Yates shuffle from https://stackoverflow.com/questions/273313/randomize-a-listt
-		int n = lines.Length;  
-		while (n > 1) {
-			n--;  
-			int k = rng.Next(n + 1);  
-			string value = lines[k];
-			lines[k] = lines[n];  
-			lines[n] = value;  
-		}
-
-        // Write randomized facts into text file
-		using (StreamWriter outputFile = new StreamWriter("Assets/Resources/funfacta.txt"))
-        {
-            foreach (string line in lines) {
-                // Make sure blank lines are ignored
-                if(line != "") {
-                    outputFile.WriteLine(line);
-                }
-            }
-        }
-	}
 }

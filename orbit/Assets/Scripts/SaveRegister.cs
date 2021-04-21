@@ -47,8 +47,6 @@ public class SaveRegister : MonoBehaviour
         PlayerPrefs.SetInt("tutorial", 1);
 
         yPos = 123;
-
-        ff.randomize();
     }
 
     public void next() {

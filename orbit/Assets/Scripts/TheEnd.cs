@@ -41,8 +41,6 @@ public class TheEnd : MonoBehaviour
         PlayerPrefs.SetInt("physics", 0);
         PlayerPrefs.SetInt("tech", 0);
 
-        ff.randomize();
-
         fader.goToScene("Level1");
     }
 }
