@@ -1,6 +1,6 @@
 ﻿/*
 Send Player Prefs as HTML form. Adapted from example in class
-written by Octavio Navarro and Gilberto Echeverría.
+Written by Octavio Navarro and Gilberto Echeverría.
 13/04/2021
 */
 
@@ -36,6 +36,7 @@ public class SendFormData : MonoBehaviour
         form.AddField("engineering", PlayerPrefs.GetInt("engineering"));
         form.AddField("tech", PlayerPrefs.GetInt("tech"));
         form.AddField("math", PlayerPrefs.GetInt("math"));
+        form.AddField("score", PlayerPrefs.GetInt("score"));
 
         Debug.Log(form);
 

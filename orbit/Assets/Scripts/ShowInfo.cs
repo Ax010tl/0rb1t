@@ -12,6 +12,7 @@ public class ShowInfo : MonoBehaviour
     [SerializeField] Text title;
     [SerializeField] Text body;
     [SerializeField] Text score;
+    [SerializeField] Text currScore;
     [SerializeField] Image powerup;
     [SerializeField] Image ods;
     [SerializeField] AudioClip interested;
@@ -32,6 +33,9 @@ public class ShowInfo : MonoBehaviour
         score.text = ff.getMessage();
         powerup.sprite = ff.getPowerup();
         ods.sprite = ff.getSDG();
+
+        // Print out score
+        currScore.text = PlayerPrefs.GetInt("score") + " puntos";
     }
 
     public void exitGame() 

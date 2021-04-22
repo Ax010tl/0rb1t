@@ -8,12 +8,14 @@ using UnityEngine;
 
 public class FloatyBoi : MonoBehaviour
 {
-    float speed;
+    float speed, min, max;
     
     // Start is called before the first frame update
     void Start()
     {
         speed = -0.002f;
+        min = transform.position.y - 0.2f;
+        max = transform.position.y + 0.2f;
     }
 
     // Update is called once per frame
@@ -25,7 +27,7 @@ public class FloatyBoi : MonoBehaviour
             0
         );
 
-        if (transform.position.y <= -0.2 || transform.position.y >= 0.2f)
+        if (transform.position.y <= min || transform.position.y >= max)
             speed *= -1;
     }
 }

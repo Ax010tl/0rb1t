@@ -28,7 +28,7 @@ public class Manager : MonoBehaviour
         sfx = GetComponent<AudioManager>();
     }
 
-    void Update() {
+    void Awake() {
         score = PlayerPrefs.GetInt("score");
         lives = PlayerPrefs.GetInt("lives");
         level = PlayerPrefs.GetInt("level");
@@ -57,6 +57,7 @@ public class Manager : MonoBehaviour
                 StartCoroutine(fade(scoreAlert, "+" + num));
             }
         }
+        displayAll();
     }
 
     public void changeLives(int num) {
@@ -72,6 +73,7 @@ public class Manager : MonoBehaviour
         else {
             StartCoroutine(addLives(num));
         }
+        displayAll();
     }
 
     public void changeLevel(int num) {
@@ -100,13 +102,6 @@ public class Manager : MonoBehaviour
         }
         livesBox.text = livesText + livesEmoji;
         scoreBox.text = scoreText + scoreEmoji;
-    }
-
-    // Use this method when displaying outside level
-    public void showAll() {
-        levelBox.text = levelText + level.ToString();
-        livesBox.text = livesText + lives.ToString();
-        scoreBox.text = scoreText + score.ToString();
     }
 
     // Show message when lives and score change

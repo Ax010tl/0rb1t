@@ -63,8 +63,6 @@ public class Goal : MonoBehaviour
     }
 
     void Update() {
-        sct.displayAll();
-
         // Asteroids will show up on level 5
         if(PlayerPrefs.GetInt("level") >= 5){
             obstacle.SetActive(true);
