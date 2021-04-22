@@ -60,6 +60,7 @@ public class WelcomeScreen : MonoBehaviour
         fader.goToScene("Register");
     }
 
+    // Make sure second instance of music doesn't start if scene is reloaded
     void Awake()
     {
         GameObject[] objs = GameObject.FindGameObjectsWithTag("Music");
@@ -68,25 +69,25 @@ public class WelcomeScreen : MonoBehaviour
         }
         DontDestroyOnLoad(music);
     }
+
+    // Receive high score and show it
     IEnumerator getHighScore()
     {
         using (UnityWebRequest webRequest = UnityWebRequest.Get(apiURL))
         {
-            // Request and wait for the desired page.
+            // Request and wait for the desired page
             yield return webRequest.SendWebRequest();
-            if(webRequest.isNetworkError || webRequest.downloadHandler.text.Contains("Error")){
+            if(webRequest.isNetworkError || webRequest.downloadHandler.text.Contains("Error")) {
                 highScore.enabled = false;
                 highScoreShadow.enabled = false;
                 highScoreNumber = "0";
             } else {
                 highScoreNumber = webRequest.downloadHandler.text;
-                // [{"MAX(score)" : 39}]
                 highScoreNumber = highScoreNumber.Split(':')[1];
                 highScoreNumber = highScoreNumber.Split('}')[0];
                 highScore.text = "HIGH SCORE: " +highScoreNumber;
                 highScoreShadow.text = "HIGH SCORE: " +highScoreNumber;
             }
         }
-        print(highScoreNumber);
     }
 }
