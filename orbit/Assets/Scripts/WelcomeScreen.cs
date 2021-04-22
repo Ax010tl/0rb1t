@@ -1,21 +1,34 @@
 ﻿/*
-Manage behaviours in welcome screen: buttons, movement, audio.
-Valeria Pineda
+Manage behaviours in welcome screen: buttons, movement, audio
+and display high score.
+Valeria Pineda & Lalo Villalpando
 16/04/2021
 */
 
 using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Networking;
 
 public class WelcomeScreen : MonoBehaviour
 {
+    string apiURL = "https://steam-orbit.herokuapp.com/api/highscore";
+    string highScoreNumber;
     [SerializeField] GameObject rocket;
     [SerializeField] GameObject planet;
     [SerializeField] LevelFader fader;
     [SerializeField] GameObject music;
+    [SerializeField] Text highScore;
+    [SerializeField] Text highScoreShadow;
     Vector3 dis;
     float t = 0;
 
+    void Start()
+    {
+        // Fetch highest score from API
+        StartCoroutine(getHighScore());
+    }
     // Update is called once per frame
     void Update()
     {
@@ -54,5 +67,26 @@ public class WelcomeScreen : MonoBehaviour
             Destroy(objs[1]);
         }
         DontDestroyOnLoad(music);
+    }
+    IEnumerator getHighScore()
+    {
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(apiURL))
+        {
+            // Request and wait for the desired page.
+            yield return webRequest.SendWebRequest();
+            if(webRequest.isNetworkError || webRequest.downloadHandler.text.Contains("Error")){
+                highScore.enabled = false;
+                highScoreShadow.enabled = false;
+                highScoreNumber = "0";
+            } else {
+                highScoreNumber = webRequest.downloadHandler.text;
+                // [{"MAX(score)" : 39}]
+                highScoreNumber = highScoreNumber.Split(':')[1];
+                highScoreNumber = highScoreNumber.Split('}')[0];
+                highScore.text = "HIGH SCORE: " +highScoreNumber;
+                highScoreShadow.text = "HIGH SCORE: " +highScoreNumber;
+            }
+        }
+        print(highScoreNumber);
     }
 }
