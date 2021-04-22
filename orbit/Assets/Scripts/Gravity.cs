@@ -87,6 +87,10 @@ public class Gravity : MonoBehaviour
 
         bodyRocket.AddForce(force);
         updateTrayectoryAngle();
+
+        // Give the illusion the stars are far away (parallax)
+        float dis_boi = 0.21f * mainCamera.orthographicSize;
+        background.transform.localScale = new Vector3(dis_boi, dis_boi, 0);
     }
 
     IEnumerator disappearGravity ()

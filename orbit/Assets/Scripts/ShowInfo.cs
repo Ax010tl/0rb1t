@@ -42,7 +42,7 @@ public class ShowInfo : MonoBehaviour
 
     public void omit()
     {
-        source.PlayOneShot(omitted, 3.5f);
+        source.PlayOneShot(omitted, 2.5f);
         fader.goToScene("Level1");
     }
 

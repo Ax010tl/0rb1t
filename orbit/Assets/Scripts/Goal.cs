@@ -78,7 +78,7 @@ public class Goal : MonoBehaviour
     IEnumerator disappear()
     {
         // Disappear messages after 1 second
-        yield return new WaitForSeconds(5); 
+        yield return new WaitForSeconds(3); 
         changeMessage.SetActive(false);
     }
 

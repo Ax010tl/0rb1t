@@ -114,14 +114,14 @@ public class SaveRegister : MonoBehaviour
         RectTransform genderPos = genderParent.GetComponent<RectTransform>();
         RectTransform schoolLevelPos = schoolLevelParent.GetComponent<RectTransform>();
 
-        // Move to the next register (700 away)
-        for (int i = 0; i < 35; i++)
+        // Move to the next register (1000 away)
+        for (int i = 0; i < 32; i++)
         {
-            aliasPos.anchoredPosition = new Vector2(aliasPos.anchoredPosition.x +20*direction, yPos);
-            agePos.anchoredPosition = new Vector2(agePos.anchoredPosition.x +20*direction, yPos);
-            statePos.anchoredPosition = new Vector2(statePos.anchoredPosition.x +20*direction, yPos);
-            genderPos.anchoredPosition = new Vector2(genderPos.anchoredPosition.x +20*direction, yPos);
-            schoolLevelPos.anchoredPosition = new Vector2(schoolLevelPos.anchoredPosition.x +20*direction, yPos);
+            aliasPos.anchoredPosition = new Vector2(aliasPos.anchoredPosition.x +31.25f*direction, yPos);
+            agePos.anchoredPosition = new Vector2(agePos.anchoredPosition.x +31.25f*direction, yPos);
+            statePos.anchoredPosition = new Vector2(statePos.anchoredPosition.x +31.25f*direction, yPos);
+            genderPos.anchoredPosition = new Vector2(genderPos.anchoredPosition.x +31.25f*direction, yPos);
+            schoolLevelPos.anchoredPosition = new Vector2(schoolLevelPos.anchoredPosition.x +31.25f*direction, yPos);
 
             yield return null;
         }

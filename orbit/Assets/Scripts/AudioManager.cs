@@ -27,7 +27,7 @@ public class AudioManager : MonoBehaviour
 
     // Functions for audios to play
     public void scorePlusSound() {
-        source.PlayOneShot(scoreAdd);
+        source.PlayOneShot(scoreAdd, 0.8f);
     }
     public void scoreMinusSound() {
         source.PlayOneShot(scoreTake);
