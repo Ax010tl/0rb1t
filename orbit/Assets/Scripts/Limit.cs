@@ -44,10 +44,10 @@ public class Limit : MonoBehaviour
         rocket.GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
         rocket.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
 
-        if (PlayerPrefs.GetInt("lives") > 1) {
-            // Subtract life
-            sct.changeLives(-1);
+        // Subtract life
+        sct.changeLives(-1);
 
+        if (PlayerPrefs.GetInt("lives") > 0) {
             // Show message to try again
             endText.text = "Intenta de nuevo :(";
             endMessage.SetActive(true);
@@ -56,7 +56,6 @@ public class Limit : MonoBehaviour
         }
         else {
             PlayerPrefs.SetInt("lives", 0);
-            sfx.gameOverSound();
             // Show end of game message
             endText.text = "¡Ya no tienes vidas!";
             endMessage.SetActive(true);

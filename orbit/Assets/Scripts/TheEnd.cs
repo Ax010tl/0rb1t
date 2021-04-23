@@ -24,9 +24,9 @@ public class TheEnd : MonoBehaviour
 
         int level = PlayerPrefs.GetInt("level")-1;
 
-        livesText.text = "Vidas: " + PlayerPrefs.GetInt("lives");
+        livesText.text = PlayerPrefs.GetInt("lives") + " vida" + (PlayerPrefs.GetInt("lives") == 1? "" : "s");
         levelText.text = "Completaste " + level + " nivel" + (level == 1 ? "" : "es");
-        scoreText.text = PlayerPrefs.GetInt("score") + " puntos";
+        scoreText.text = PlayerPrefs.GetInt("score") + " punto" + (PlayerPrefs.GetInt("score") == 1? "" : "s");
     }
 
     public void restartGame() {
@@ -42,5 +42,9 @@ public class TheEnd : MonoBehaviour
         PlayerPrefs.SetInt("tech", 0);
 
         fader.goToScene("Level1");
+    }
+
+    public void mainMenu() {
+        fader.goToScene("Welcome");
     }
 }
