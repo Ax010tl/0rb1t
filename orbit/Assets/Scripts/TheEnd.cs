@@ -43,4 +43,8 @@ public class TheEnd : MonoBehaviour
 
         fader.goToScene("Level1");
     }
+
+    public void mainMenu() {
+        fader.goToScene("Welcome");
+    }
 }
