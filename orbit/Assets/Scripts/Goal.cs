@@ -1,4 +1,4 @@
-﻿/*
+/*
 This class handles the basics of the game: score and lives. 
 Lourdes Badillo & Eduardo Villalpando
 9/04/2021
@@ -13,22 +13,25 @@ public class Goal : MonoBehaviour
     public int numberOfRevolutions; 
     //in order to make it more difficult, we are setting a min number of orbits the rocket must do 
     [SerializeField] int minRevolutions;
+    [SerializeField] Text endText;
+    [SerializeField] Text changeText;
     [SerializeField] GameObject canvas;
     [SerializeField] GameObject endMessage;
-    [SerializeField] Text endText;
     [SerializeField] GameObject changeMessage;
-    [SerializeField] Text changeText;
-    [SerializeField] GameObject bounds;
+    [SerializeField] GameObject obstacle;
+    [SerializeField] GameObject moon;
     [SerializeField] LevelFader fader;
     [SerializeField] FunFactReader ff;
+    [SerializeField] Limit limit;
     Manager sct;
-    Limit limit;
+    Launch launcher;
+    int level;
 
-    GameObject[] obstacles;
-    GameObject obstacle; 
     // Start is called before the first frame update
     void Start()
     {
+        level = PlayerPrefs.GetInt("level");
+
         // Restart number of revolutions
         numberOfRevolutions = 0;
         // Call Manager.cs and displayAll to show all stats
@@ -37,40 +40,27 @@ public class Goal : MonoBehaviour
         // Hide end message
         endMessage.SetActive(false);
         changeMessage.SetActive(false);
-        // Call Limit.cs to handle collision with planet
-        limit = bounds.GetComponent<Limit>();
-
-        // An obstacle will be activated once the player reaches level 5
-        obstacles = GameObject.FindGameObjectsWithTag("Obstacle");
-        obstacle = obstacles[0];
-        obstacle.SetActive(false);
+        launcher = GetComponent<Launch>();
 
         // Message to let the users know gravity increases with each level
-        if(PlayerPrefs.GetInt("level") == 2){
+        if(level == 2) {
             changeText.text = "La gravedad va a ir cambiando.";
             changeMessage.SetActive(true);
             StartCoroutine(disappear());
         }
-
         // Message to let the users know there will be obstacles from that level on
-        if(PlayerPrefs.GetInt("level") == 5){
+        else if(level == 5) {
             changeText.text = "Cuidado con los asteroides.";
             changeMessage.SetActive(true);
             StartCoroutine(disappear());
         }
 
         ff.scoreDelta = 0;
-    }
 
-    void Update() {
-        // Asteroids will show up on level 5
-        if(PlayerPrefs.GetInt("level") >= 5){
+        // Shows obstacle from beginning of scene if moon is disabled
+        if(PlayerPrefs.GetInt("level") >= 5 && !moon.activeInHierarchy) {
             obstacle.SetActive(true);
         }
-        else{
-            obstacle.SetActive(false);
-        }
-
     }
 
     IEnumerator disappear()
@@ -104,14 +94,14 @@ public class Goal : MonoBehaviour
 
         // If the rocket collides with the planet, lives are subtracted
         if(collider.tag == "Planet") {
-            // Once number of revolutions has been reached, it won't be counted if player loses lives
-            if(numberOfRevolutions >= minRevolutions) {return;}
+            // If number of revolutions has been reached or rocket hasn't launched, it won't be counted if player loses lives
+            if(numberOfRevolutions >= minRevolutions || launcher.canDrag) {return;}
             else {
                 limit.manageCollision();
             }
         }
 
-        // If the rocket collides with an obstacle, lives(?) are subtracted
+        // If the rocket collides with an obstacle, points are subtracted
         if(collider.tag == "Obstacle") {
             // Once number of revolutions has been reached, it won't be counted if player collides with obstacles
             if(numberOfRevolutions >= minRevolutions) {return;}
@@ -136,7 +126,7 @@ public class Goal : MonoBehaviour
 
     // Go to fun fact depending on power up sprite and facts that have already been displayed
     string getFunFactScene(){
-        if(PlayerPrefs.GetInt("level") < 14) {
+        if(level < 13) {
             return "FunFact";
         }
         else {
@@ -145,6 +135,3 @@ public class Goal : MonoBehaviour
     }
 
 }
-
-
-

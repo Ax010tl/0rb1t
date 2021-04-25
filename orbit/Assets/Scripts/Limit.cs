@@ -11,11 +11,14 @@ using UnityEngine.UI;
 
 public class Limit : MonoBehaviour
 {
+    [SerializeField] Text endText;
+    [SerializeField] Text gravity;
+    [SerializeField] Text gravity2;
     [SerializeField] GameObject canvas;
     [SerializeField] GameObject endMessage;
-    [SerializeField] Text endText;
     [SerializeField] GameObject levelFade;
-    [SerializeField] Text gravity;
+    [SerializeField] GameObject obstacle;
+    [SerializeField] GameObject moon;
     LevelFader fader;
     Manager sct;
     GameObject rocket;
@@ -46,12 +49,20 @@ public class Limit : MonoBehaviour
 
         // Subtract life
         sct.changeLives(-1);
+        
+        // Disable obstacle so player can drag ship
+        if(obstacle.activeInHierarchy && moon.activeInHierarchy) {
+            obstacle.SetActive(false);
+        }
 
         if (PlayerPrefs.GetInt("lives") > 0) {
             // Show message to try again
             endText.text = "Intenta de nuevo :(";
             endMessage.SetActive(true);
             gravity.enabled = true;
+            if(gravity2.gameObject.activeInHierarchy) {
+                gravity2.enabled = true;
+            }
             StartCoroutine(delayRestart());
         }
         else {
@@ -73,6 +84,9 @@ public class Limit : MonoBehaviour
 
         yield return new WaitForSeconds(15);
         gravity.enabled = false;
+        if(gravity2.gameObject.activeInHierarchy) {
+            gravity2.enabled = false;
+        }
     }
 
     public IEnumerator delayEnd() {
