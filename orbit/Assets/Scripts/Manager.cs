@@ -101,7 +101,7 @@ public class Manager : MonoBehaviour
         }
 
         // Shows score as symbols :3
-        string scoreEmoji = "";
+        string scoreEmoji = "Puntos\n";
         for(int i = 0; i < score; i++){
             scoreEmoji += "|";
         }

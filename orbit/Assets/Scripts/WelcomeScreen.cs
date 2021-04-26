@@ -33,7 +33,7 @@ public class WelcomeScreen : MonoBehaviour
     void Update()
     {
         move();
-        updateTrayectoryAngle();
+        updateAngle();
     }
 
     // Move rocket around
@@ -48,7 +48,7 @@ public class WelcomeScreen : MonoBehaviour
     }
 
     // Change direction rocket is facing
-    void updateTrayectoryAngle(){
+    void updateAngle(){
         dis = rocket.transform.position - planet.transform.position;
         float angleRadians = (float) Math.Atan2(dis.y, dis.x);
         float angleDegrees = angleRadians * (180/ (float) Math.PI);

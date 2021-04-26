@@ -16,11 +16,16 @@ public class Launch : MonoBehaviour
     public Transform pivot; 
     //Drag range
     public float dragRange;
+    public bool canDrag = true; 
+    //Distance
     //Max velocity 
     [SerializeField] float maxVel; 
     [SerializeField] GameObject arrowHead;
     [SerializeField] GameObject arrow;
+    [SerializeField] GameObject obstacle;
+    [SerializeField] GameObject moon;
     Rigidbody2D rb;
+    Vector3 dis; 
 
     // Start is called before the first frame update
     void Start()
@@ -29,9 +34,6 @@ public class Launch : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Kinematic; 
     }
 
-    public bool canDrag = true; 
-    //Distance
-    public Vector3 dis; 
     void OnMouseDrag()
     {
         //If it has been launched
@@ -53,7 +55,6 @@ public class Launch : MonoBehaviour
         transform.position = dis + pivot.position;
         arrowHead.transform.position = (pivot.position - 1.5f*dis);
         transform.rotation = Quaternion.Euler(0, 0, angleDegrees-42.381f);
-
     }
 
     void OnMouseUp()
@@ -72,10 +73,10 @@ public class Launch : MonoBehaviour
         rb.velocity = dis.normalized * maxVel * dis.magnitude / dragRange;
         //Hide arrow
         arrow.SetActive(false);
-    }
-   
-    void Update()
-    {
-        
+
+        // Asteroids will show up on level 5
+        if(PlayerPrefs.GetInt("level") >= 5 && moon.activeInHierarchy) {
+            obstacle.SetActive(true);
+        }
     }
 }
