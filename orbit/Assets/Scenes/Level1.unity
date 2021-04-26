@@ -1940,7 +1940,7 @@ MonoBehaviour:
   endMessage: {fileID: 533240659}
   levelFade: {fileID: 1357325774}
   obstacle: {fileID: 1536191471}
-  moon: {fileID: 887582401}
+  moon: {fileID: 1911870761}
 --- !u!1 &809172441
 GameObject:
   m_ObjectHideFlags: 0
@@ -2773,7 +2773,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 23.3, y: -11.5}
+  m_AnchoredPosition: {x: 23.300049, y: -11.5}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1202925284
